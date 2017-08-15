@@ -4,7 +4,26 @@
   "description": "mini weather report",
   "main": "index.js",
   "scripts": {
-    "test": "ava -v --serial tests/**/*.test.js"
+    "postinstall": "webpack",
+    "dev": "nodemon --watch server server/index & webpack --watch",
+    "start": "node server/index",
+    "test": "ava -v --serial 'tests/**/*.test.js'",
+    "watch": "nodemon -e js,jsx -x npm test",
+    "h:deploy": "git push heroku master",
+    "h:migrate": "heroku run knex migrate:latest",
+    "h:rollback": "heroku run knex migrate:rollback",
+    "h:seed": "heroku run knex seed:run",
+    "knex": "knex"
+  },
+  "ava": {
+    "require": "babel-register",
+    "babel": "inherit"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
   },
   "repository": {
     "type": "git",
@@ -18,5 +37,30 @@
   "bugs": {
     "url": "https://github.com/chhschou/weathery/issues"
   },
-  "homepage": "https://github.com/chhschou/weathery#readme"
+  "homepage": "https://github.com/chhschou/weathery#readme",
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "enzyme": "^2.9.1",
+    "jsdom": "^11.1.0",
+    "jsdom-global": "^3.0.2",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "jsx-loader": "^0.13.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
+    "react-test-renderer": "^15.5.4",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
+    "superagent": "^2.2.0",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2"
+  }
 }
