@@ -1,0 +1,22 @@
+{
+  "name": "weathery",
+  "version": "0.1.0",
+  "description": "mini weather report",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava -v --serial tests/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chhschou/weathery.git"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "Chris Chou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chhschou/weathery/issues"
+  },
+  "homepage": "https://github.com/chhschou/weathery#readme"
+}
