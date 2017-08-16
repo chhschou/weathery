@@ -13,5 +13,5 @@ test('app rendered', t => {
 
 test('app initial state', t => {
   const wrapper = shallow(<App />)
-  t.is(wrapper.state(), {currentWeather: {}})
+  t.is(Object.keys(wrapper.state())[0], 'currentWeather')
 })
