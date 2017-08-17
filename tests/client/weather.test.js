@@ -56,6 +56,6 @@ function getData() {
 
 test('weather component renders', t => {
   const data = getData()
-  const wrapper = shallow( < Weather weather={data} / > )
+  const wrapper = shallow( < Weather weather={data} /> )
   t.is(wrapper.find('.weather').length, 1)
 })
