@@ -1,7 +1,7 @@
 import * as types from '../actions'
 
 const initialState = {
-  name: '',
+  name: null,
   coord: {
     lat: null,
     lon: null
