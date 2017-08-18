@@ -1,3 +1,6 @@
+var webpack = require('webpack')
+require('dotenv').config()
+
 module.exports = {
   entry: './client/index.js',
   output: {
@@ -15,5 +18,10 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   devtool: 'source-map',
-  node: {fs: 'empty'}
+  node: {fs: 'empty'},
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.OPENWEATHERMAP_APIKEY': JSON.stringify( process.env.OPENWEATHERMAP_APIKEY)
+    })
+  ]
 }
