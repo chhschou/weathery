@@ -1,4 +1,4 @@
-require('dotenv').config()
+import 'dotenv/config'
 import test from 'ava'
 import nock from 'nock'
 import './setup-client-env'
@@ -52,7 +52,7 @@ const getWeatherData = () => ({
   "cod": 200
 })
 
-test('setWeatherViaCity works', t => {
+test('setWeatherViaCity action creator works', t => {
   nock('http://api.openweathermap.org')
     .get('/data/2.5/weather')
     .query({
@@ -71,11 +71,11 @@ test('setWeatherViaCity works', t => {
 
   return store.dispatch(actions.setWeatherViaCity('London'))
   .then(() => {
-    t.deepEqual(store.getActions(), expectedActionCreators)
+    t.deepEqual(store.getActions(), expectedActionCreators, 'when successfully fetched the latest weather')
   })
 })
 
-test('setWeatherViaLatLon works', t => {
+test('setWeatherViaLatLon action creator works', t => {
   nock('http://api.openweathermap.org')
     .get('/data/2.5/weather')
     .query({
@@ -95,6 +95,6 @@ test('setWeatherViaLatLon works', t => {
 
   return store.dispatch(actions.setWeatherViaLatLon(51.51, -0.13))
   .then(() => {
-    t.deepEqual(store.getActions(), expectedActionCreators)
+    t.deepEqual(store.getActions(), expectedActionCreators, 'when successfully fetched the latest weather')
   })
 })
