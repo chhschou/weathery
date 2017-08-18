@@ -5,8 +5,6 @@ import {Provider} from 'react-redux'
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
-import {getCurrentLocation, isCurrentLocationAvailable} from './actions/location'
-import {setWeatherViaLatLon} from './actions/weather'
 import reducers from './reducers'
 import App from './components/App'
 
@@ -23,11 +21,4 @@ document.addEventListener('DOMContentLoaded', () => {
     </Provider>,
     document.getElementById('app')
   )
-
-  if (isCurrentLocationAvailable()) {
-    getCurrentLocation((position) => {
-      const {latitude, longitude} = position.coord
-      store.dispatch(setWeatherViaLatLon(latitude, longitude))
-    })
-  }
 })
