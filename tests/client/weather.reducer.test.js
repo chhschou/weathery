@@ -5,7 +5,7 @@ import reducer from '../../client/reducers/weather'
 
 test('weather reducer has initial state', t => {
   const initialState = {
-    name:'',
+    name: null,
     coord: {lat: null, lon: null},
     main: []
   }
@@ -14,7 +14,7 @@ test('weather reducer has initial state', t => {
 })
 
 
-test('handles RECEIVE_WEATHER', t => {
+test('handles RECEIVE_WEATHER action', t => {
   const nextState = reducer({}, {type: types.RECEIVE_WEATHER, weather: {name: 'new weather'}})
 
   t.is(nextState.name, 'new weather')
