@@ -9,6 +9,6 @@ test('Error component', t => {
   const wrapper = shallow(<Error msg={errorMsg} />)
   
   const render = wrapper.find('.error')
-  t.is(render.length, 1, 'renders')
-  t.is(render.text(), errorMsg)
+  t.is(render.length, 1, 'did not render')
+  t.is(render.text(), errorMsg, 'has wrong content')
 })
