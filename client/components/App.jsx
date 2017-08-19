@@ -3,8 +3,9 @@ import { HashRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import Weather from './Weather'
-import {getCurrentLocation, isCurrentLocationAvailable} from '../actions/location'
-import {setWeatherViaLatLon} from '../actions/weather'
+import Error from './Error'
+import { getCurrentLocation, isCurrentLocationAvailable } from '../actions/location'
+import { setWeatherViaLatLon } from '../actions/weather'
 
 class App extends React.Component {
   constructor(props) {
@@ -15,17 +16,15 @@ class App extends React.Component {
     if (isCurrentLocationAvailable()) {
       getCurrentLocation(
         (position) => {
-          const { latitude, longitude } = position.coord
-          store.dispatch(setWeatherViaLatLon(latitude, longitude))
+          const { latitude, longitude } = position.coords
+          this.props.dispatch(setWeatherViaLatLon(latitude, longitude))
         },
         (err) => {
-          store.dispatch(setErrorMessage('Unable to get latest weather for current location'))
         })
     }
   }
 
   render() {
-    console.log('props', this.props)
     return (
       <Router>
         <div className='app-container'>
