@@ -24,10 +24,8 @@ export const setWeatherViaLatLon = (lat, lon, errCallback) => {
         dispatch(receiveWeather(res.body))
       })
       .catch((err) => {
-        if (err) {
-          if (errCallback) errCallback(err)
-          else throw err
-        }
+        if (errCallback) errCallback(err)
+        else throw err
       })
   }
 }
@@ -43,10 +41,8 @@ export const setWeatherViaCity = (city, errCallback) => {
         dispatch(receiveWeather(res.body))
       })
       .catch((err) => {
-        if (err) {
-          if (errCallback) errCallback(err)
-          else throw err
-        }
+        if (errCallback) errCallback(err)
+        else throw err
       })
   }
 }
