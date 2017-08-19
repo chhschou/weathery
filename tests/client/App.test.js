@@ -9,7 +9,7 @@ import App from '../../client/components/App'
 
 const mockStore = configureMockStore()
 
-test('app rendered', t => {
+test('App rendered', t => {
   const store = mockStore({
     current: {},
     weather: {}
