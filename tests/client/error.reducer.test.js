@@ -9,9 +9,32 @@ test('error reducer handles CLEAR_ERROR action', t => {
     msg: null
   }
 
-  const currentState = {msg: 'an error has occurred'}
+  const currentState = {
+    msg: 'an error has occurred'
+  }
   const clearErrorAction = actions.clearError()
   const actual = reducer(currentState, clearErrorAction)
 
-  t.deepEqual(actual, expected) 
+  t.deepEqual(actual, expected)
+})
+
+test('error reducer handles SET_ERROR action', t => {
+  const expected = {
+    request: {
+      url: '/data',
+      header: [{
+        key: 'Accept',
+        value: 'application/json'
+      }]
+    },
+    msg: 'error occurred twice'
+  }
+
+  const currentState = {
+    msg: 'an error has occurred'
+  }
+  const setErrorAction = actions.setError(expected)
+  const actual = reducer(currentState, setErrorAction)
+
+  t.deepEqual(actual, expected)
 })
