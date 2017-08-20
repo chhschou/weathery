@@ -6,7 +6,7 @@ import Weather from './Weather'
 import Error from './Error'
 import { getCurrentLocation, isCurrentLocationAvailable } from '../actions/location'
 import { setWeatherViaLatLon } from '../actions/weather'
-import { clearError } from '../actions/error'
+import { clearError, setError } from '../actions/error'
 
 class App extends React.Component {
   constructor(props) {
@@ -15,15 +15,14 @@ class App extends React.Component {
 
   componentDidMount() {
     if (isCurrentLocationAvailable()) {
-      getCurrentLocation(
-        (position) => {
-          this.props.dispatch(clearError())
-          const { latitude, longitude } = position.coords
-          this.props.dispatch(setWeatherViaLatLon(latitude, longitude))
-        },
-        (err) => {
-          console.log(err)
-        })
+      getCurrentLocation().then((position) => {
+        this.props.dispatch(clearError())
+        const { latitude, longitude } = position.coords
+        this.props.dispatch(setWeatherViaLatLon(latitude, longitude)) 
+      })
+      .catch((err) => {
+        this.props.dispatch(setError(err))
+      })
     }
   }
 

@@ -1,7 +1,9 @@
 export const isCurrentLocationAvailable = () => navigator.geolocation
 
-export const getCurrentLocation = (successCallback, errorCallback) => {
+export const getCurrentLocation = () => {
   if (isCurrentLocationAvailable) {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject) 
+    })
   }
 }
