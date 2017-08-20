@@ -12,7 +12,8 @@ const mockStore = configureMockStore()
 test('App rendered', t => {
   const store = mockStore({
     current: {},
-    weather: {}
+    weather: {},
+    error: {}
   })
 
   const wrapper = mount(<Provider store={store}><App /></Provider>)
