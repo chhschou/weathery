@@ -13,12 +13,20 @@ export const Weather = ({ name, coord, wind, main, weather }) => {
   return (
     <div className='weather' >
       {name &&
-        <div className='weather-details'>
+        <div className='content-wrapper weather-details'>
           <h2 className='city'>{name}</h2>
-          <img className='location' src={getLocationImgSrc(coord)} alt='location' />
-          <img className='overview' src={`http://openweathermap.org/img/w/${weather[0].icon}.png`} alt={weather[0].description} />
-          <h3 className='temp-high'>High {kelvinToCelsius(main.temp_max)} °C/ {kelvinToFahrenheit(main.temp_max)} °F</h3>
-          <h3 className='temp-low'>Low {kelvinToCelsius(main.temp_min)} °C/ {kelvinToFahrenheit(main.temp_min)} °F</h3>
+          <h3 className='today'>Today</h3>
+          <div className='temp-high'>
+            <h3>High {kelvinToCelsius(main.temp_max)} °C/ {kelvinToFahrenheit(main.temp_max)} °F</h3>
+          </div>
+          <div className='temp-low'>
+            <h3>Low {kelvinToCelsius(main.temp_min)} °C/ {kelvinToFahrenheit(main.temp_min)} °F</h3>
+          </div>
+          <div className='current'>
+            <h4>Current {kelvinToCelsius(main.temp)} °C/ {kelvinToFahrenheit(main.temp)} °F</h4>
+            <img className='overview' src={`http://openweathermap.org/img/w/${weather[0].icon}.png`} alt={weather[0].description} />
+            <span>{weather[0].description}</span>
+          </div>
           <h3 className='avg-wind'>Average wind speed {msToKmh(wind.speed)} km/h {degToNN(wind.deg)}</h3>
         </div >
       }

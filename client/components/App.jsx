@@ -32,7 +32,7 @@ class App extends React.Component {
         <div className='app-container'>
           <header className='app-header'>
             <div className='content-wrapper'>
-              <img src="/assets/logo.png" alt="logo"/>
+              <img className='logo' src="/assets/logo.png" alt="logo"/>
               <div className='search'>
                 <input type='text' placeholder='Your city name' />
                 <button>Search</button>
