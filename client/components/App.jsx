@@ -30,7 +30,15 @@ class App extends React.Component {
     return (
       <Router>
         <div className='app-container'>
-          <h1>Weathery</h1>
+          <header className='app-header'>
+            <div className='content-wrapper'>
+              <img src="/assets/logo.png" alt="logo"/>
+              <div className='search'>
+                <input type='text' placeholder='Your city name' />
+                <button>Search</button>
+              </div>
+            </div>
+          </header>
           {this.props.error.msg && <Error msg={this.props.error.msg} />}
           <Weather />
         </div>

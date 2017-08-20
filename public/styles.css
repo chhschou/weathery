@@ -1,3 +1,48 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
+}
+
+/* System Fonts as used by GitHub */
+body {
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.content-wrapper {}
+
+.app-header img {
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+
+@media (min-width: 576px) {}
+
+
+/* Medium devices (tablets, 768px and up) */
+
+@media (min-width: 768px) {}
+
+
+/* Large devices (desktops, 992px and up) */
+
+@media (min-width: 992px) {}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+  .content-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .app-header img {
+    display: block;
+    margin: 0 auto;
+  }
+  .app-header .search {
+    display: flex;
+    justify-content: center;
+  }
 }
