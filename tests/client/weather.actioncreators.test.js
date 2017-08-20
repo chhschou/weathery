@@ -1,10 +1,10 @@
-import 'dotenv/config'
 import test from 'ava'
 import nock from 'nock'
-import './setup-client-env'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import 'dotenv/config'
 
+import './setup-client-env'
 import * as types from '../../client/actions'
 import * as actions from '../../client/actions/weather.js'
 
