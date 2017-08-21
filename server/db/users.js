@@ -17,7 +17,6 @@ function userExists(username, conn) {
 
 function createUser(username, password, conn) {
   const db = conn || connection
-  console.log('db', db)
   return db('users').insert({
     username,
     hash: password
