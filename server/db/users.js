@@ -5,7 +5,8 @@ const {
 
 module.exports = {
   userExists,
-  createUser
+  createUser,
+  getUserByName
 }
 
 function userExists(username, conn) {
@@ -24,4 +25,9 @@ function createUser(username, password, conn) {
     username,
     hash: generate(password)
   })
+}
+
+function getUserByName(username, conn) {
+  const db = conn || connection
+  return db('users').where('username', username).first()
 }
