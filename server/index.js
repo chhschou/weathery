@@ -1,3 +1,4 @@
+require('dotenv').config()
 var createServer = require('./server')
 
 var knex = require('./db/connection')
