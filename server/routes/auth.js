@@ -5,9 +5,9 @@ const {
   userExists,
   createUser
 } = require('../db/users')
-const { issue } = require('../auth/token')
+const token = require('../auth/token')
 
-router.post('/register', register, issue)
+router.post('/register', register, token.issue)
 
 
 function register(req, res, next) {
@@ -34,5 +34,11 @@ function register(req, res, next) {
 
   // todo if not hash password and add user to the database
 }
+
+router.get('/username', token.decode, (req, res) => {
+  res.send({
+    username: req.user.username
+  })
+})
 
 module.exports = router

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const verifyJWT = require('express-jwt')
 const {
   getUserByName
 } = require('../db/users')
@@ -32,6 +33,17 @@ function createToken(user, secret) {
   })
 }
 
+function decode(req, res, next) {
+  verifyJWT({
+    secret: getSecret
+  })(req, res, next)
+}
+
+function getSecret(req, payload, done) {
+  done(null, process.env.JWT_SECRET)
+}
+
 module.exports = {
-  issue
+  issue,
+  decode
 }
