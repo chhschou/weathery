@@ -5,12 +5,12 @@ const {
   userExists,
   createUser
 } = require('../db/users')
+const { issue } = require('../auth/token')
+
+router.post('/register', register, issue)
 
 
-router.post('/register', register)
-
-
-function register(req, res) {
+function register(req, res, next) {
   const {
     username,
     password
@@ -24,7 +24,7 @@ function register(req, res) {
         })
       }
       createUser(username, password)
-        .then(() => res.status(201).end())
+        .then(() => next())
     })
     .catch((err) => {
       res.status(500).send({

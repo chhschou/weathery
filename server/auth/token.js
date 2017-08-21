@@ -10,7 +10,8 @@ function issue(req, res, next) {
 
   getUserByName(username)
     .then((user) => {
-      const token = createToken(user.username, process.env.JWT_SECRET)
+      console.log(user)
+      const token = createToken(user, process.env.JWT_SECRET)
       res.json({
         message: 'Auth successful',
         token
@@ -21,8 +22,12 @@ function issue(req, res, next) {
     }))
 }
 
-function createToken(username, secret) {
-  return jwt.sign(user.username, secret, {
+function createToken(user, secret) {
+  // payload (1st arg to sign()) must be an obj to have an expire time set
+  return jwt.sign({
+    id: user.id,
+    username: user.username
+  }, secret, {
     expiresIn: '1d'
   })
 }

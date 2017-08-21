@@ -3,6 +3,7 @@ const {
   generate
 } = require('../auth/hash')
 
+
 module.exports = {
   userExists,
   createUser,
