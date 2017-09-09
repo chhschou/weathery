@@ -1,0 +1,96 @@
+export default function getWUConditionsData() {
+  // http://api.wunderground.com/api/<apikey>/conditions/q/new_zealand/Wellington.json
+  return {
+    "response": {
+      "version": "0.1",
+      "termsofService": "http://www.wunderground.com/weather/api/d/terms.html",
+      "features": {
+        "conditions": 1
+      }
+    },
+    "current_observation": {
+      "image": {
+        "url": "http://icons.wxug.com/graphics/wu2/logo_130x80.png",
+        "title": "Weather Underground",
+        "link": "http://www.wunderground.com"
+      },
+      "display_location": {
+        "full": "Wellington, New Zealand",
+        "city": "Wellington",
+        "state": "WGN",
+        "state_name": "New Zealand",
+        "country": "NZ",
+        "country_iso3166": "NZ",
+        "zip": "00000",
+        "magic": "1",
+        "wmo": "93436",
+        "latitude": "-41.29000092",
+        "longitude": "174.77999878",
+        "elevation": "7.9"
+      },
+      "observation_location": {
+        "full": "Taranaki Street Wharf, Wellington, WELLINGTON",
+        "city": "Taranaki Street Wharf, Wellington",
+        "state": "WELLINGTON",
+        "country": "NZ",
+        "country_iso3166": "NZ",
+        "latitude": "-41.289631",
+        "longitude": "174.780487",
+        "elevation": "16 ft"
+      },
+      "estimated": {},
+      "station_id": "IWELLING323",
+      "observation_time": "Last Updated on September 8, 11:23 PM NZST",
+      "observation_time_rfc822": "Fri, 08 Sep 2017 23:23:35 +1200",
+      "observation_epoch": "1504869815",
+      "local_time_rfc822": "Fri, 08 Sep 2017 23:28:58 +1200",
+      "local_epoch": "1504870138",
+      "local_tz_short": "NZST",
+      "local_tz_long": "Pacific/Auckland",
+      "local_tz_offset": "+1200",
+      "weather": "Mostly Cloudy",
+      "temperature_string": "55.5 F (13.1 C)",
+      "temp_f": 55.5,
+      "temp_c": 13.1,
+      "relative_humidity": "80%",
+      "wind_string": "From the North at 9.0 MPH Gusting to 21.0 MPH",
+      "wind_dir": "North",
+      "wind_degrees": 355,
+      "wind_mph": 9,
+      "wind_gust_mph": "21.0",
+      "wind_kph": 14.5,
+      "wind_gust_kph": "33.8",
+      "pressure_mb": "994",
+      "pressure_in": "29.36",
+      "pressure_trend": "-",
+      "dewpoint_string": "49 F (9 C)",
+      "dewpoint_f": 49,
+      "dewpoint_c": 9,
+      "heat_index_string": "NA",
+      "heat_index_f": "NA",
+      "heat_index_c": "NA",
+      "windchill_string": "NA",
+      "windchill_f": "NA",
+      "windchill_c": "NA",
+      "feelslike_string": "55.5 F (13.1 C)",
+      "feelslike_f": "55.5",
+      "feelslike_c": "13.1",
+      "visibility_mi": "6.2",
+      "visibility_km": "10.0",
+      "solarradiation": "--",
+      "UV": "0",
+      "precip_1hr_string": "0.00 in ( 0 mm)",
+      "precip_1hr_in": "0.00",
+      "precip_1hr_metric": " 0",
+      "precip_today_string": " in ( mm)",
+      "precip_today_in": "",
+      "precip_today_metric": "--",
+      "icon": "mostlycloudy",
+      "icon_url": "http://icons.wxug.com/i/c/k/nt_mostlycloudy.gif",
+      "forecast_url": "http://www.wunderground.com/global/stations/93436.html",
+      "history_url": "http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IWELLING323",
+      "ob_url": "http://www.wunderground.com/cgi-bin/findweather/getForecast?query=-41.289631,174.780487",
+      "nowcast": ""
+    }
+  }
+}
