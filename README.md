@@ -1,5 +1,5 @@
 # Weathery
-Customizable weather forecast
+Simple current weather and forecast
 
 ## Install
 ```
@@ -38,3 +38,28 @@ npm run h:seed # optional, will replace existing data with seeds
 ## Stretch
 * [ ] As a user I want to easily view on mobile device (iphone 6 optimized)
 * [ ] As a user I want to share weather at my current location to social media (priority twitter, facebook)
+
+
+#### Information architecture
+* weather
+  * id
+  * location
+    * name (i.e. city name)
+    * countryName
+    * lat
+    * lon
+  * currentCondition
+    * time
+    * temp (current, high low for today)
+    * feels like
+    * wind chill adjusted temp (to get layer of clothing needed)
+  * hourly 10day forecast 
+    * hourly temp over today
+  * 10day forecast
+    * feels like
+    * temp (high low)
+* settings
+  * current display city id
+  * c/f
+  * default city id
+  * favorite cities (list of ids) 
