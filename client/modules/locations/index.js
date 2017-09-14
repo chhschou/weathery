@@ -1,7 +1,7 @@
-// import * as actions from './actions'
+import * as actions from './actions'
 // import * as components from './components'
 import * as actionTypes from './actionTypes'
 import reducer from './reducer'
 // import * as selectors from './selectors'
 
-export { actionTypes, actions, reducer }
+export default { actionTypes, actions, reducer }

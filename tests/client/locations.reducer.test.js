@@ -1,6 +1,6 @@
 import test from 'ava'
-import { reducer, actionTypes } from '../../client/modules/locations'
-import { constants as weatherActionTypes } from '../../client/modules/weathers'
+import locations from '../../client/modules/locations'
+const { reducer, actionTypes } = locations
 
 test('location reducer has initial state', t => {
   const initialState = [{
