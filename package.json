@@ -4,19 +4,26 @@
   "description": "mini weather report",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack",
-    "dev": "nodemon --watch server server/index & webpack --watch",
+    "postinstall": "webpack --config client/webpack.config.js",
+    "dev": "nodemon --watch server server/index & webpack --config client/webpack.config.js --watch",
+    "dev-client": "webpack-dev-server --hot --inline --content-base public",
     "start": "node server/index",
     "test": "ava -v --serial 'tests/**/*.test.js'",
+    "ava": "ava -v",
     "watch": "nodemon -e js,jsx -x npm test",
     "h:deploy": "git push heroku master",
     "h:migrate": "heroku run knex migrate:latest",
     "h:rollback": "heroku run knex migrate:rollback",
     "h:seed": "heroku run knex seed:run",
-    "knex": "knex"
+    "knex": "knex",
+    "start-mockapi": "webpack --config client/webpack.config.js --watch & json-server --watch"
   },
   "ava": {
-    "require": "babel-register",
+    "require": [
+      "babel-register",
+      "ignore-styles",
+      "./tests/client/helpers/browser-env.js"
+    ],
     "babel": "inherit"
   },
   "babel": {
@@ -44,16 +51,19 @@
   "devDependencies": {
     "ava": "^0.22.0",
     "babel-polyfill": "^6.26.0",
+    "browser-env": "^3.2.0",
     "enzyme": "^2.9.1",
-    "jsdom": "^11.1.0",
-    "jsdom-global": "^3.0.2",
+    "ignore-styles": "^5.0.1",
+    "json-server": "^0.12.0",
     "nock": "^9.0.14",
     "nodemon": "^1.11.0",
     "redux-mock-store": "^1.2.3",
-    "sqlite3": "^3.1.9",
-    "supertest": "^3.0.0"
+    "sqlite3": "^3.1.10",
+    "supertest": "^3.0.0",
+    "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
+    "autoprefixer": "^7.1.4",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -62,12 +72,27 @@
     "babel-register": "^6.24.1",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
+    "css-loader": "^0.28.7",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "express-jwt": "^5.3.0",
+    "extract-text-webpack-plugin": "^3.0.0",
     "jsonwebtoken": "^7.4.3",
     "jsx-loader": "^0.13.2",
     "knex": "^0.13.0",
+    "postcss-color-function": "^4.0.0",
+    "postcss-color-hex-alpha": "^3.0.0",
+    "postcss-color-hwb": "^3.0.0",
+    "postcss-custom-media": "^6.0.0",
+    "postcss-custom-properties": "^6.1.0",
+    "postcss-custom-selectors": "^4.0.1",
+    "postcss-loader": "^2.0.6",
+    "postcss-media-minmax": "^3.0.0",
+    "postcss-mixins": "^6.1.0",
+    "postcss-nesting": "^4.1.0",
+    "postcss-partial-import": "^4.1.0",
+    "postcss-selector-matches": "^3.0.1",
+    "postcss-selector-not": "^3.0.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
@@ -76,8 +101,8 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "sodium": "^2.0.1",
+    "style-loader": "^0.18.2",
     "superagent": "^2.2.0",
-    "webpack": "^2.3.3",
-    "webpack-dev-server": "^2.4.2"
+    "webpack": "^3.5.6"
   }
 }
