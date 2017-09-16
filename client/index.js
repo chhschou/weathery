@@ -5,11 +5,11 @@ import {Provider} from 'react-redux'
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
-import reducers from './reducers'
+import rootReducer from './rootReducer'
 import App from './components/App'
 
 
-let store = createStore(reducers, compose(
+let store = createStore(rootReducer, compose(
   applyMiddleware(thunkMiddleware),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )) 
