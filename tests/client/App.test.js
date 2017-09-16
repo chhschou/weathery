@@ -1,6 +1,5 @@
 import test from 'ava'
 import {shallow, mount} from 'enzyme'
-import 'jsdom-global/register'
 import configureMockStore from 'redux-mock-store'
 
 import React from 'react'
@@ -11,8 +10,8 @@ const mockStore = configureMockStore()
 
 test('App rendered', t => {
   const store = mockStore({
-    current: {},
-    weather: {},
+    locations: [],
+    weathers: [],
     error: {}
   })
 
