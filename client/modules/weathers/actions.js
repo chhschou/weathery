@@ -1,14 +1,23 @@
 import request from 'superagent'
-import {
-  RECEIVE_WEATHER
-} from './index'
+import { REQUEST, RECEIVE, UPDATE } from './actionTypes'
 
-const getWeatherViaCity = (city, successCallback, errCallback) => {}
 
-const receiveWeather = (weather) => {
+export const requestWeathers = (locationId) => {
+  return { type: REQUEST, locationId }
+}
+
+export const receiveWeathers = (weathers) => {
+  return { type: RECEIVE, weathers }
+}
+
+export const updateWeather = (weather) => {
+  return { type: UPDATE, weather }
+}
+
+export const addWeather = (locationId) => {
   return {
-    type: RECEIVE_WEATHER,
-    weather
+    type: ADD,
+    weather: { isFetching: true }
   }
 }
 
