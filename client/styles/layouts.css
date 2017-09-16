@@ -1,0 +1,17 @@
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.l-wrap {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+
+.l-page__section {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}

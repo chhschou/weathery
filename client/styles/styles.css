@@ -1,0 +1,120 @@
+
+
+/* // Libraries and helpers */
+/* @import 'lib/lib'; */
+/* @import 'helpers/helpers'; */
+
+/* // Variables */
+/* @import 'variables/colors'; */
+@import 'variables/typography';
+@import 'variables/breakpoints';
+/* @import 'variables/themes'; // only when necessary */
+
+/* // Reset and base files */
+/* @import 'base/base'; */
+
+/* // Layouts */
+@import "layouts";
+
+/* // Objects
+// -------
+@import 'objects/buttons';
+@import 'objects/input';
+@import 'objects/typography';
+// Other objects as necessary
+
+// Components
+// ----------
+@import 'components/component-name-1';
+@import 'components/component-name-2';
+@import 'components/component-name-3';
+@import 'components/component-name-4';
+// Other components as necessary */
+
+/* // Utilities */
+/* @import 'utilities'; */
+
+
+.wrapper-content {
+  max-width: 90vw;
+}
+
+.app-header .logo {
+  display: block;
+  margin: 0 auto;
+}
+
+.app-header .search {
+  display: flex;
+  justify-content: center;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 
+  "city city city city city city"
+  "today today today current current current"
+  "temp temp temp current current current"
+  ;
+  grid-gap: 20px;
+}
+
+ .weather-details .city {
+  grid-area: city;
+  margin: 0 auto;
+}
+
+.weather-details .today {
+  grid-area: today;
+  padding: 1rem;
+  text-align: end;
+}
+
+.weather-details .temp-high {
+  grid-area: temp;
+}
+
+.weather-details .temp-low {
+  grid-area: temp;
+}
+
+.weather-details .current {
+  grid-area: current;
+} 
+
+/* Small devices (landscape phones, 576px and up) */
+
+@media (min-width: 576px) {}
+
+
+/* Medium devices (tablets, 768px and up) */
+
+@media (min-width: 768px) {}
+
+
+/* Large devices (desktops, 992px and up) */
+
+@media (min-width: 992px) {}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+  .wrapper-content {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .app-header img {
+    display: block;
+    margin: 0 auto;
+  }
+  .app-header .search {
+    display: flex;
+    justify-content: center;
+  }
+  .weather-details {
+    display: grid;
+    justify-content: center;
+  }
+}
