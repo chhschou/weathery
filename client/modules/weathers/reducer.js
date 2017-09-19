@@ -1,20 +1,21 @@
 import * as actionTypes from './actionTypes'
 
 const initialState = {
+  isFetching: new Set(),
   items: {}
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case actionTypes.ADD:
     case actionTypes.UPDATE:
       state.items[action.weather.locationId] = action.weather
       return { ...state }
     case actionTypes.REQUEST:
-      state.items[action.locationId].isFetching = true
+      state.isFetching.add(action.locationId)
       return { ...state }
     case actionTypes.RECEIVE:
-      return { isFetching: false, items: action.weathers }
+      state.isFetching.delete(action.weather.locationId)
+      return { ...state }
     default:
       return state
   }
