@@ -15,14 +15,3 @@ test('wu conditions adaptor works', t => {
 
   t.deepEqual(actual, expected)
 })
-
-test('run this to create a mockdata.json', t => {
-  const output = {}
-  output.conditions = data.getConditions()
-  output.f = data.getForecastDay()
-  output.h = data.getForecastHours()
-  const fs = require('fs')
-  fs.writeFileSync('./tests/data/mockdata.json', JSON.stringify(output, null, 2))
-
-  t.pass()
-})
