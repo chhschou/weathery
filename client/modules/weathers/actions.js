@@ -1,57 +1,29 @@
 import request from 'superagent'
-import { REQUEST, RECEIVE, UPDATE } from './actionTypes'
+import { REQUEST, RECEIVE, UPDATE } from 'modules/weathers/actionTypes'
+import actions from 'actions'
 
 
-export const requestWeathers = (locationId) => {
+export const requestWeather = (locationId) => {
   return { type: REQUEST, locationId }
 }
 
-export const receiveWeathers = (weathers) => {
-  return { type: RECEIVE, weathers }
+export const receiveWeather = (locationId) => {
+  return { type: RECEIVE, locationId }
 }
 
 export const updateWeather = (weather) => {
   return { type: UPDATE, weather }
 }
 
-export const addWeather = (locationId) => {
-  return {
-    type: ADD,
-    weather: { isFetching: true }
-  }
-}
-
-export const setWeatherViaLatLon = (lat, lon, errCallback) => {
+export const getWeather = (locationId) => {
   return (dispatch) => {
-    return request.get('http://api.openweathermap.org/data/2.5/weather')
-      .query({
-        lat: lat,
-        lon: lon,
-        APPID: process.env.OPENWEATHERMAP_APIKEY
-      })
+    dispatch(requestWeather(locationId))
+    return request.get('api/v1/weathers/' + locationId)
       .then((res) => {
         dispatch(receiveWeather(res.body))
       })
       .catch((err) => {
-        if (errCallback) errCallback(err)
-        else throw err
-      })
-  }
-}
-
-export const setWeatherViaCity = (city, errCallback) => {
-  return (dispatch) => {
-    return request.get('http://api.openweathermap.org/data/2.5/weather')
-      .query({
-        q: city,
-        APPID: process.env.OPENWEATHERMAP_APIKEY
-      })
-      .then((res) => {
-        dispatch(receiveWeather(res.body))
-      })
-      .catch((err) => {
-        if (errCallback) errCallback(err)
-        else throw err
+        dispatch(setError(err))
       })
   }
 }
