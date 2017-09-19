@@ -37,6 +37,7 @@ npm run h:seed # optional, will replace existing data with seeds
 
 ## Stretch
 * [ ] As a user I want to easily view on mobile device (iphone 6 optimized)
+* [ ] As a user I want to easily and simply organize weather imformation (dashboard widget style)
 * [ ] As a user I want to share weather at my current location to social media (priority twitter, facebook)
 * [ ] P2P weather information sharing. Hopefully location based for better experience (Peerjs?) 
 * [ ] Decentralized bootstraping (node with latest weather becomes master-peer) http://ns2.thinkmind.org/download.php?articleid=web_2017_1_30_40029
