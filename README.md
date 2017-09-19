@@ -38,28 +38,52 @@ npm run h:seed # optional, will replace existing data with seeds
 ## Stretch
 * [ ] As a user I want to easily view on mobile device (iphone 6 optimized)
 * [ ] As a user I want to share weather at my current location to social media (priority twitter, facebook)
+* [ ] P2P weather information sharing. Hopefully location based for better experience (Peerjs?) 
+* [ ] Decentralized bootstraping (node with latest weather becomes master-peer) http://ns2.thinkmind.org/download.php?articleid=web_2017_1_30_40029
+
+## Basic workflow
+1. app loads
+2. get user location and populate current location and weather
+3. if cannot get user location, show the first location in user's list
 
 
 #### Information architecture
-* weather
+* settings
+  * c/f
+  * current location displayed (= -1 initially)
+* location
   * id
-  * location
-    * name (i.e. city name)
-    * countryName
+  * name (i.e. city name)
+  * countryName
+  * coord
     * lat
     * lon
+* weather
+  * location id
   * currentCondition
-    * time
+    * datetime (from api response)
     * temp (current, high low for today)
-    * feels like
+    * feels like temp
     * wind chill adjusted temp (to get layer of clothing needed)
-  * hourly 10day forecast 
+  * hourly10day forecast 
+    * datetime (from api response)
     * hourly temp over today
-  * 10day forecast
-    * feels like
+    * feels like temp
+  * forecast10day
+    * datetime (from api response)
     * temp (high low)
-* settings
-  * current display city id
-  * c/f
-  * default city id
-  * favorite cities (list of ids) 
+* user
+  * location
+    * rawCoord
+      * lat
+      * lon
+    * translated location id
+  * profile
+    * fname
+    * lname
+    * email
+  * social
+    * twitter
+    * facebook
+  * c/f (default)
+  * favorite locations (list of location ids) 
