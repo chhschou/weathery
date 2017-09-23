@@ -23,7 +23,7 @@ function getAddrComponents(rawResponse) {
 
         component.longName = address.long_name
         component.shortName = address.short_name
-        components.push(component)
+        components[component.level] = component
 
         return components
       }, [])
