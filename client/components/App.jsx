@@ -9,6 +9,7 @@ import Error from 'components/Error'
 import locations from 'modules/locations'
 const { getCurrentLocation, isCurrentLocationAvailable } = locations.actions
 import { clearError, setError } from 'actions/error'
+import headerCSS from './header.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -38,26 +39,33 @@ class App extends React.Component {
     return false
   }
 
+  getLvl2Name() {
+    if (this.props.currentLocationId != -1 && this.props.locations[this.props.currentLocationId]) {
+      const location = this.props.locations[this.props.currentLocationId]
+      const lvl2 = location.addrComponents.find((component) => component.level == 2)
+
+      return lvl2.longName
+    }
+
+    return ''
+  }
+
+  toggleMenu() {
+    console.log('toggle')
+  }
+
+
   render() {
     return (
       <Router>
         <div className='app-container'>
-          <header className='header'>
-            <div className='dropdown-btn'>
-              <select name="city" id="">
-                <option value={{ lat: -0.13, lon: 51.51 }}>Wellington</option>
-              </select>
-            </div>
+          <header className='l-header c-header'>
+            <button className='o-header__button' onClick={this.toggleMenu.bind(this)}>|||</button>
+            <h1>{this.getLvl2Name()}</h1>
+            <button className='o-header__button'>Search</button>
           </header>
           {this.props.error.msg && <Error msg={this.props.error.msg} />}
           {this.hasWeatherToRender() && <Weather />}
-          <div className='bottom-nav'>
-            <ul>
-              <li>Now</li>
-              <li>Forecast</li>
-              <li>Settings</li>
-            </ul>
-          </div>
         </div>
       </Router>
     )
@@ -67,9 +75,9 @@ class App extends React.Component {
 function mapStateToProps(state) {
   return {
     weathers: state.weathers,
+    locations: state.locations,
     currentLocationId: state.settings.currentLocationId,
     error: state.error
-
   }
 }
 
