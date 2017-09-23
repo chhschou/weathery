@@ -16,7 +16,9 @@
     "h:rollback": "heroku run knex migrate:rollback",
     "h:seed": "heroku run knex seed:run",
     "knex": "knex",
-    "start-mockapi": "webpack --config client/webpack.config.js --watch & node 'tests/data/createMockData.js' & json-server --watch './tests/data/mockdata.json' --routes './tests/data/routes.json'"
+    "start-mockapi": "webpack --config client/webpack.config.js --watch & node 'tests/data/createMockData.js' & json-server --watch './tests/data/mockdata.json' --routes './tests/data/routes.json'",
+    "commitmsg": "validate-commit-msg",
+    "commit": "git-cz "
   },
   "ava": {
     "require": [
@@ -52,7 +54,10 @@
     "ava": "^0.22.0",
     "babel-polyfill": "^6.26.0",
     "browser-env": "^3.2.0",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
     "enzyme": "^2.9.1",
+    "husky": "^0.13.1",
     "ignore-styles": "^5.0.1",
     "json-server": "^0.12.0",
     "nock": "^9.0.14",
@@ -60,6 +65,7 @@
     "redux-mock-store": "^1.2.3",
     "sqlite3": "^3.1.10",
     "supertest": "^3.0.0",
+    "validate-commit-msg": "^2.11.1",
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
@@ -104,5 +110,30 @@
     "style-loader": "^0.18.2",
     "superagent": "^2.2.0",
     "webpack": "^3.5.6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+				"build",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore",
+        "ci",
+        "revert"
+      ],
+      "warnOnFail": false,
+      "maxSubjectLength": 100,
+      "subjectPattern": "^#[0-9]+ - .*",
+      "subjectPatternErrorMsg": "Subject must be in format '#123 - Commit message'",
+      "helpMessage": ""
+    }
   }
 }
