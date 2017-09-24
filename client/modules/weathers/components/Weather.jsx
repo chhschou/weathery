@@ -7,7 +7,7 @@ const { kelvinToCelsius, kelvinToFahrenheit, msToKmh, degToNN } = helpers.format
 import css from './weather.css'
 
 function getLocationImgSrc(coord) {
-  const imgSrc = `https://maps.googleapis.com/maps/api/staticmap?center=${coord.lat},${coord.lon}&zoom=13&size=300x300&sensor=false`
+  const imgSrc = `https://maps.googleapis.com/maps/api/staticmap?center=${coord.lat},${coord.lng}&zoom=13&size=300x300&sensor=false`
 
   return imgSrc
 }

@@ -13,13 +13,13 @@ test('handles RECEIVE action', t => {
     {
       id: 1, name: 'Wellington', countryName: 'New Zealand', coordinates: {
         lat: -41.29,
-        lon: 174.77
+        lng: 174.77
       }
     },
     {
       id: 2, name: 'some place', countryName: 'some country', coordinates: {
         lat: -1.0,
-        lon: -1.0
+        lng: -1.0
       }
     }
   ]

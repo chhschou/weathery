@@ -58,7 +58,7 @@ npm run h:seed # optional, will replace existing data with seeds
   * countryName
   * coord
     * lat
-    * lon
+    * lng
 * weather
   * location id
   * currentCondition
@@ -77,7 +77,7 @@ npm run h:seed # optional, will replace existing data with seeds
   * location
     * rawCoord
       * lat
-      * lon
+      * lng
     * translated location id
   * profile
     * fname

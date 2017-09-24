@@ -39,7 +39,7 @@ test.skip('setWeatherViaLatLon action creator works', t => {
     .get('/data/2.5/weather')
     .query({
       lat: 51.51,
-      lon: -0.13,
+      lng: -0.13,
       APPID: process.env.OPENWEATHERMAP_APIKEY
     })
     .reply(200, getWeatherData())
