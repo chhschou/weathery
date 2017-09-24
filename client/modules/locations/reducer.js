@@ -1,18 +1,20 @@
 import * as actionTypes from './actionTypes.js'
 
-const initialState = {}
+const initialState = {
+  isFetching: new Set(),
+  items: {}
+}
 
 export default function (state = initialState, action) {
-  const newState = { ...state }
 
   switch (action.type) {
+    case actionTypes.REQUEST:
+      state.isFetching.add(action.locationId)
+      return {...state}
     case actionTypes.RECEIVE:
-      action.locations.forEach((l) => newState[l.id] = l)
-      return newState
-    case actionTypes.ADD:
-    case actionTypes.UPDATE:
-      newState[action.location.id] = action.location
-      return newState
+      const location = action.location
+      state.items[location.id] = location
+      return {...state}
     default:
       return state
   }

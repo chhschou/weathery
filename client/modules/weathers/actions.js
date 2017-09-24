@@ -15,10 +15,30 @@ export const updateWeather = (weather) => {
   return { type: UPDATE, weather }
 }
 
-export const getWeather = (locationId) => {
+export const getWeatherViaLocationId = (locationId) => {
+  return (dispatch, getState) => {
+    const state = getState()
+    console.log(state)
+    const { weathers, locations } = getState()
+    const weatherAtLocation = weathers.items[locationId]
+    if (weatherAtLocation) {
+      // check it isn't stale
+      // assume not for now
+    } else {
+      const location = locations[locationId]
+      if (location) {
+        const { lat, lng } = location.coords
+        dispatch(requestWeather(locationId))
+        dispatch(getWeather(lat, lng))
+      }
+    }
+  }
+}
+
+export const getWeather = (lat, lng) => {
   return (dispatch) => {
-    dispatch(requestWeather(locationId))
-    return request.get('api/v1/weathers/' + locationId)
+    console.log('lat,lng', lat, lng)
+    return request.get('api/v1/weathers/' + lat, lng)
       .then((res) => {
         dispatch(receiveWeather(res.body))
       })

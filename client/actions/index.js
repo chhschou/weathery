@@ -1,2 +1,2 @@
-import error from 'actions/error'
+import * as error from 'actions/error'
 export default { error }

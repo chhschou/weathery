@@ -7,7 +7,8 @@ const { Weather } = weathers.components
 const { setWeatherViaLatLon, receiveWeather } = weathers.actions
 import Error from 'components/Error'
 import locations from 'modules/locations'
-const { getCurrentLocation, isCurrentLocationAvailable } = locations.actions
+const { getUserLocation, isUserLocationAvailable, getLocationViaLatLon } = locations.actions
+import settings from 'modules/settings'
 import { clearError, setError } from 'actions/error'
 import headerCSS from './header.css'
 
@@ -17,12 +18,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (isCurrentLocationAvailable()) {
-      getCurrentLocation()
+    const {currentLocationId, dispatch} = this.props
+    if (currentLocationId == -1 && this.props.isUserLocationAvailable()) {
+      getUserLocation()
         .then((position) => {
-          this.props.dispatch(clearError())
+          dispatch(clearError())
+          dispatch(settings.actions.updateCurrentLocationId(0)) // 0 for user location
           const { latitude, longitude } = position.coords
-          this.props.dispatch(setWeatherViaLatLon(latitude, longitude))
+          this.props.dispatch(getLocationViaLatLon(latitude, longitude))
         })
         .catch((err) => {
           this.props.dispatch(setError(err))

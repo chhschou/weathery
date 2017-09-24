@@ -45,6 +45,7 @@ module.exports = {
     new ExtractTextPlugin('bundle.css'),
     new webpack.DefinePlugin({
       'process.env.OPENWEATHERMAP_APIKEY': JSON.stringify(process.env.OPENWEATHERMAP_APIKEY),
+      'process.env.G_GEOCODE_APIKEY': JSON.stringify(process.env.G_GEOCODE_APIKEY),
       'process.env.SIMULATE_API': JSON.stringify(process.env.SIMULATE_API)
     })
   ]
