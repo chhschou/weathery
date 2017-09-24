@@ -3,6 +3,7 @@ function getFullAddr(rawResponse) {
 }
 
 function getAddrComponents(rawResponse) {
+  console.log(JSON.stringify(rawResponse, null, 2))
   const apiResult = rawResponse.results
   if (apiResult.length >= 2) {
     const addrComponents = apiResult[1].address_components
@@ -32,8 +33,21 @@ function getAddrComponents(rawResponse) {
   }
 }
 
+function getBounds(rawResponse) {
+  const apiResult = rawResponse.results
+  if (apiResult.length >= 2) {
+    const bounds = apiResult[1].geometry.bounds
+    return bounds
+  }
+}
+
+function extractLocation(rawResponse) {
+  return {
+    addrComponents: getAddrComponents(rawResponse),
+    bounds: getBounds(rawResponse)
+  }
+}
 
 module.exports = {
-  getFullAddr,
-  getAddrComponents
+  extractLocation
 }
