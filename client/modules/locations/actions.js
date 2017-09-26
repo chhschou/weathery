@@ -28,20 +28,15 @@ export const getLocationViaAddr = (lvl2Addr, country) => {
 }
 
 export const getLocationViaLatLon = (lat, lng) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(requestLocation())
     const apiKey = process.env.G_GEOCODE_APIKEY
     const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json'
     const url = `${baseUrl}?latlng=${lat},${lng}&key=${apiKey}`
     return request.get(url)
       .then((geoCodeRes) => {
-        // save this geocode as id 0
-        const location = { id: 0,  ...(adapter.extractLocation(geoCodeRes))}
-        dispatch(receiveLocation(location))
-        dispatch(weather.actions.getWeatherViaLocationId(location.id))
-      })
-      .catch((err) => {
-        dispatch(actions.error.setError(err))
+        const location = { ...(adapter.extractLocation(geoCodeRes)) }
+        return dispatch(receiveLocation(location))
       })
   }
 }

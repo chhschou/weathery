@@ -18,14 +18,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const {currentLocationId, dispatch} = this.props
+    const { currentLocationId, dispatch } = this.props
     if (currentLocationId == -1 && this.props.isUserLocationAvailable()) {
       getUserLocation()
         .then((position) => {
           dispatch(clearError())
-          dispatch(settings.actions.updateCurrentLocationId(0)) // 0 for user location
           const { latitude, longitude } = position.coords
-          this.props.dispatch(getLocationViaLatLon(latitude, longitude))
+          dispatch(getLocationViaLatLon(latitude, longitude))
+            .then(() => {
+
+              return dispatch(settings.actions.updateCurrentLocationId(0)) // 0 for user location
+            })
+            .then(() => {
+              // save this geocode as id 0
+              dispatch(weather.actions.getWeatherViaLocationId(location.id))
+
+            })
         })
         .catch((err) => {
           this.props.dispatch(setError(err))
