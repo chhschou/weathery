@@ -1,59 +1,39 @@
-import test from 'ava'
 import nock from 'nock'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import 'dotenv/config'
 
-import './setup-client-env'
-import * as data from './data'
-import { actions, constants } from '../../client/modules/weathers'
+// import './setup-client-env'
+import { getConditions } from '../data/wu'
+import weathers from 'modules/weathers'
+import { getBase, getApiFragment } from '../../common/url_builders/wu'
 
 const middleware = [thunk]
 const mockStore = configureMockStore(middleware)
 
-test.skip('setWeatherViaCity action creator works', t => {
-  nock('http://api.openweathermap.org')
-    .get('/data/2.5/weather')
-    .query({
-      q: 'London',
-      APPID: process.env.OPENWEATHERMAP_APIKEY
-    })
-    .reply(200, getWeatherData())
+test('getWeatherViaLocationId action creator works', () => {
+  nock(getBase())
+    .get(getApiFragment('conditions', process.env.WUNDERGROUND_APIKEY, -41.29, 174.78))
+    .reply(200, getConditions())
 
   const expectedActionCreators = [
-    { type: types.RECEIVE_WEATHER, weather: getWeatherData() }]
+    { type: weathers.actionTypes.REQUEST, locationId: 1 },
+    { type: weathers.actionTypes.RECEIVE, locationId: 1, weather: getConditions() }]
 
   const store = mockStore({
-    current: {},
-    weather: {}
+    locations: {
+      items: [undefined, { id: 1, coords: { lat: -41.29, lng: 174.78 } }]
+    },
+    weathers: {
+      items: {}
+    },
+    settings: {
+      weatherApiKey: process.env.WUNDERGROUND_APIKEY,
+    }
   })
 
-  return store.dispatch(actions.setWeatherViaCity('London'))
+  return store.dispatch(weathers.actions.getWeatherViaLocationId(1))
     .then(() => {
-      t.deepEqual(store.getActions(), expectedActionCreators, 'when successfully fetched the latest weather')
-    })
-})
-
-test.skip('setWeatherViaLatLon action creator works', t => {
-  nock('http://api.openweathermap.org')
-    .get('/data/2.5/weather')
-    .query({
-      lat: 51.51,
-      lng: -0.13,
-      APPID: process.env.OPENWEATHERMAP_APIKEY
-    })
-    .reply(200, getWeatherData())
-
-  const expectedActionCreators = [
-    { type: types.RECEIVE_WEATHER, weather: getWeatherData() }]
-
-  const store = mockStore({
-    current: {},
-    weather: {}
-  })
-
-  return store.dispatch(actions.setWeatherViaLatLon(51.51, -0.13))
-    .then(() => {
-      t.deepEqual(store.getActions(), expectedActionCreators, 'when successfully fetched the latest weather')
-    })
+      expect(store.getActions()).toEqual(expectedActionCreators)
+    });
 })

@@ -1,10 +1,8 @@
-import test from 'ava'
-
 import * as types from '../../client/actions'
 import * as actions from '../../client/actions/error'
 import reducer from '../../client/reducers/error'
 
-test('error reducer handles CLEAR_ERROR action', t => {
+test('error reducer handles CLEAR_ERROR action', () => {
   const expected = {
     msg: null
   }
@@ -15,10 +13,10 @@ test('error reducer handles CLEAR_ERROR action', t => {
   const clearErrorAction = actions.clearError()
   const actual = reducer(currentState, clearErrorAction)
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('error reducer handles SET_ERROR action', t => {
+test('error reducer handles SET_ERROR action', () => {
   const expected = {
     request: {
       url: '/data',
@@ -36,5 +34,5 @@ test('error reducer handles SET_ERROR action', t => {
   const setErrorAction = actions.setError(expected)
   const actual = reducer(currentState, setErrorAction)
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })

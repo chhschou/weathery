@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
     case actionTypes.RECEIVE:
       const { items } = state
       const location = action.location
-      if (items.length) {
+      if (!items.length) {
         items[1] = location // reserve 0th for user current location
       } else items.push(location)
       location.id = items.indexOf(location)

@@ -1,14 +1,12 @@
-import test from 'ava'
-
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 
-import { Weather } from '../../client/modules/weathers/components/Weather'
+import { Weather } from 'modules/weathers/components/Weather'
 
 import { getConditions } from '../data/wu.js'
 
-test('weather component renders', t => {
+test('weather component renders', () => {
   const data = getConditions()
   const wrapper = shallow(<Weather weather={data} />)
-  t.is(wrapper.find('.weather').length, 1)
+  expect(wrapper.find('.weather').length).toBe(1)
 })

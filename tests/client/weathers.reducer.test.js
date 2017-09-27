@@ -1,12 +1,11 @@
-import test from 'ava'
+import weathers from 'modules/weathers'
 
-import weathers from '../../client/modules/weathers'
-
-test('has correct initialstate', t => {
+test('has correct initialstate', () => {
   const expected = {
+    isFetching: new Set(),
     items: {}
   }
 
   const nextState = weathers.reducer(undefined, {})
-  t.deepEqual(nextState, expected)
+  expect(nextState).toEqual(expected)
 })

@@ -1,4 +1,3 @@
-import test from 'ava'
 import {shallow, mount} from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 
@@ -8,7 +7,7 @@ import App from '../../client/components/App'
 
 const mockStore = configureMockStore()
 
-test('App rendered', t => {
+test('App rendered', () => {
   const store = mockStore({
     locations: [],
     weathers: [],
@@ -16,5 +15,5 @@ test('App rendered', t => {
   })
 
   const wrapper = mount(<Provider store={store}><App /></Provider>)
-  t.is(wrapper.find('.app-container').length, 1)
+  expect(wrapper.find('.app-container').length).toBe(1)
 })

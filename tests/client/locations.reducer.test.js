@@ -1,31 +1,22 @@
-import test from 'ava'
-import locations from '../../client/modules/locations'
+import locations from 'modules/locations'
+import geoCode from '../data/googleGeocode'
 const { reducer, actionTypes } = locations
 
-test('has correct initial state', t => {
-  const expected = {}
-  t.deepEqual(reducer(undefined, {}), expected)
+test('has correct initial state', () => {
+  const expected = {
+    isFetching: false,
+    items: []
+  }
+
+  expect(reducer(undefined, {})).toEqual(expected)
 })
 
 
-test('handles RECEIVE action', t => {
-  const locations = [
-    {
-      id: 1, name: 'Wellington', countryName: 'New Zealand', coordinates: {
-        lat: -41.29,
-        lng: 174.77
-      }
-    },
-    {
-      id: 2, name: 'some place', countryName: 'some country', coordinates: {
-        lat: -1.0,
-        lng: -1.0
-      }
-    }
-  ]
+test('handles RECEIVE action', () => {
+  const location = geoCode.extractLocation() 
+  const nextState = reducer(undefined, { type: actionTypes.RECEIVE, location: location })
 
-  const nextState = reducer({}, { type: actionTypes.RECEIVE, locations: locations })
-
-  t.is(Object.keys(nextState).length, 2)
-  t.deepEqual(nextState[0], locations[0])
+  expect(Object.keys(nextState).length).toBe(2)
+  expect(nextState.items[0]).toBeUndefined()
+  expect(nextState.items[1]).toBe(location)
 })

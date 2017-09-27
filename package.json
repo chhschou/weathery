@@ -8,9 +8,8 @@
     "dev": "nodemon --watch server server/index & webpack --config client/webpack.config.js --watch",
     "dev-client": "webpack-dev-server --hot --inline --content-base public",
     "start": "node server/index",
-    "test": "ava -v --serial 'tests/**/*.test.js'",
-    "ava": "ava -v",
-    "watch": "nodemon -e js,jsx -x npm test",
+    "test": "jest -- ",
+    "test:watch": "jest --watch -- ",
     "h:deploy": "git push heroku master",
     "h:migrate": "heroku run knex migrate:latest",
     "h:rollback": "heroku run knex migrate:rollback",
@@ -20,13 +19,20 @@
     "commitmsg": "validate-commit-msg",
     "commit": "git-cz "
   },
-  "ava": {
-    "require": [
-      "babel-register",
-      "ignore-styles",
-      "./tests/client/helpers/browser-env.js"
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
     ],
-    "babel": "inherit"
+    "moduleDirectories": [
+      "node_modules",
+      "client",
+      "common"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/tests/__mocks__/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/tests/__mocks__/fileMock.js"
+    }
   },
   "babel": {
     "presets": [
@@ -51,7 +57,7 @@
   },
   "homepage": "https://github.com/chhschou/weathery#readme",
   "devDependencies": {
-    "ava": "^0.22.0",
+    "babel-jest": "^21.0.2",
     "babel-polyfill": "^6.26.0",
     "browser-env": "^3.2.0",
     "commitizen": "^2.9.6",
@@ -63,6 +69,8 @@
     "json-server": "^0.12.0",
     "nock": "^9.0.14",
     "nodemon": "^1.11.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-test-renderer": "^15.6.2",
     "redux-mock-store": "^1.2.3",
     "sqlite3": "^3.1.10",
     "supertest": "^3.0.0",
@@ -104,7 +112,6 @@
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
-    "react-test-renderer": "^15.5.4",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "sodium": "^2.0.1",

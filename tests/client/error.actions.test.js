@@ -1,8 +1,7 @@
-import test from 'ava'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import * as types from '../../client/actions'
+import * as types from '../../client/actionTypes'
 import {
   setError,
   clearError
@@ -10,7 +9,7 @@ import {
 
 const mockStore = configureMockStore([thunk])
 
-test('clearError action creator works', t => {
+test('clearError action creator works', () => {
   const expectedActionCreators = [{
     type: types.CLEAR_ERROR
   }]
@@ -22,11 +21,11 @@ test('clearError action creator works', t => {
   })
 
   store.dispatch(clearError())
-  t.deepEqual(store.getActions(), expectedActionCreators)
+  expect(store.getActions()).toEqual(expectedActionCreators)
 })
 
 
-test('setError action creator works', t => {
+test('setError action creator works', () => {
   const expectedError = {
     request: {
       url: '/data',
@@ -50,5 +49,5 @@ test('setError action creator works', t => {
   })
 
   store.dispatch(setError(expectedError))
-  t.deepEqual(store.getActions(), expectedActionCreators)
+  expect(store.getActions()).toEqual(expectedActionCreators)
 })

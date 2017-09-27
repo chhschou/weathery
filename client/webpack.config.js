@@ -36,7 +36,8 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     modules: [
       'node_modules',
-      'client'
+      'client',
+      'common'
     ]
   },
   devtool: 'source-map',

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wu conditions adaptor works 1`] = `
+Object {
+  "feelslikeC": "13.1",
+  "feelslikeF": "55.5",
+  "iconUrl": "http://icons.wxug.com/i/c/k/nt_mostlycloudy.gif",
+  "tempC": 13.1,
+  "tempF": 55.5,
+  "text": "Mostly Cloudy",
+  "timeStamp": "1504869815",
+}
+`;

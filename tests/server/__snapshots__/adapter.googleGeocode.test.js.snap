@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`extractLocation works 1`] = `
+Object {
+  "addrComponents": Array [
+    Object {
+      "level": 0,
+      "longName": "New Zealand",
+      "shortName": "NZ",
+    },
+    Object {
+      "level": 1,
+      "longName": "Wellington",
+      "shortName": "Wellington",
+    },
+    Object {
+      "level": 2,
+      "longName": "Wellington City",
+      "shortName": "Wellington City",
+    },
+  ],
+  "bounds": Object {
+    "northeast": Object {
+      "lat": -41.2779306,
+      "lng": 174.780461,
+    },
+    "southwest": Object {
+      "lat": -41.2911216,
+      "lng": 174.7707681,
+    },
+  },
+}
+`;

@@ -1,6 +1,5 @@
-import test from 'ava'
 import nock from 'nock'
 
-test.afterEach('remove all nock bindings', t => {
+afterEach('remove all nock bindings', () => {
   nock.cleanAll()
 })

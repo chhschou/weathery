@@ -3,7 +3,6 @@ function getFullAddr(rawResponse) {
 }
 
 function getAddrComponents(rawResponse) {
-  console.log(JSON.stringify(rawResponse, null, 2))
   const apiResult = rawResponse.results
   if (apiResult.length >= 2) {
     const addrComponents = apiResult[1].address_components

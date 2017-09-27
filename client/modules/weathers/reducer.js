@@ -8,13 +8,14 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case actionTypes.UPDATE:
-      state.items[action.weather.locationId] = action.weather
+      state.items[action.locationId] = action.weather
       return { ...state }
     case actionTypes.REQUEST:
       state.isFetching.add(action.locationId)
       return { ...state }
     case actionTypes.RECEIVE:
-      state.isFetching.delete(action.weather.locationId)
+      state.isFetching.delete(action.locationId)
+      state.items[action.locationId] = action.weather
       return { ...state }
     default:
       return state
