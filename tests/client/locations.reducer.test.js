@@ -13,10 +13,18 @@ test('has correct initial state', () => {
 
 
 test('handles RECEIVE action', () => {
-  const location = geoCode.extractLocation() 
+  const location = geoCode.extractLocation()
   const nextState = reducer(undefined, { type: actionTypes.RECEIVE, location: location })
 
-  expect(Object.keys(nextState).length).toBe(2)
-  expect(nextState.items[0]).toBeUndefined()
-  expect(nextState.items[1]).toBe(location)
+  expect(nextState.items.length).toBe(1)
+  expect(nextState.items[0]).toBe(location)
+})
+
+test('handles update location with specific id', () => {
+  const location = geoCode.extractLocation()
+  location.id = 5
+  const nextState = reducer(undefined, { type: actionTypes.RECEIVE, location: location })
+
+  expect(nextState.items.length).toBe(6)
+  expect(nextState.items[5]).toBe(location)
 })

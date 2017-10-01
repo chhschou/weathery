@@ -1,8 +1,8 @@
 import request from 'superagent'
-import { REQUEST, RECEIVE } from 'modules/locations/actionTypes'
+import { REQUEST, RECEIVE, EDIT } from 'modules/locations/actionTypes'
 import actions from 'actions'
 import weather from 'modules/weathers'
-import adapter from '../../../common/adapters/googleGeocode'
+import adapter from 'adapters/googleGeocode'
 
 export const receiveLocation = (location) => {
   return { type: RECEIVE, location }
@@ -27,7 +27,11 @@ export const getLocationViaAddr = (lvl2Addr, country) => {
   }
 }
 
-export const getLocationViaLatLon = (lat, lng) => {
+export function editLocation(location) {
+  return { type: types.EDIT, location }
+}
+
+export const getLocationViaLatLon = (lat, lng, locationId) => {
   return (dispatch, getState) => {
     dispatch(requestLocation())
     const apiKey = process.env.G_GEOCODE_APIKEY
@@ -35,7 +39,10 @@ export const getLocationViaLatLon = (lat, lng) => {
     const url = `${baseUrl}?latlng=${lat},${lng}&key=${apiKey}`
     return request.get(url)
       .then((geoCodeRes) => {
-        const location = { ...(adapter.extractLocation(geoCodeRes)) }
+        const location = {
+          id: locationId,
+          ...(adapter.extractLocation(geoCodeRes.body))
+        }
         return dispatch(receiveLocation(location))
       })
   }
