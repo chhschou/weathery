@@ -2,9 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
-import helpers from '../../../helpers'
-const { kelvinToCelsius, kelvinToFahrenheit, msToKmh, degToNN } = helpers.format
-
 import css from './weather.css'
 
 function getLocationImgSrc(coord) {
@@ -16,34 +13,30 @@ export const Weather = ({ location, weather, isCelsius }) => {
   const { currentConditions, h10, f10 } = weather
   return (
     <div className='l-wrap weather' >
-      {name &&
-        <div>
-          <section className='l-page__section c-page__section'>
-            <header className='o-datetime t3'>{moment.unix(currentConditions.timeStamp).toString()}</header>
-            <div className='c-temp'>
-              {isCelsius
-                ?
-                <div className='o-temp--celsius'>
-                  <span>{kelvinToCelsius(currentConditions.tempC)}</span>
-                  <span>°C</span>
-                </div>
-                :
-                <div className='o-temp--fahrenheit'>
-                  <span>{kelvinToFahrenheit(currentConditions.tempF)}</span>
-                  <span>°F</span>
-                </div>
-              }
+      <section className='l-page__section c-page__section'>
+        <header className='o-datetime t3'>{moment.unix(currentConditions.timeStamp).toString()}</header>
+        <div className='c-temp'>
+          {isCelsius
+            ?
+            <div className='o-temp--celsius'>
+              <span>{currentConditions.tempC}</span>
+              <span>°C</span>
             </div>
-            <img className='o-icon' src={currentConditions.iconUrl} alt={currentConditions.text} />
-            <span>{currentConditions.text}</span>
-          </section>
-          <section className='l-page__section'>
-            <header className='t3'>Today</header>
-            <div className='l-section__row'>
+            :
+            <div className='o-temp--fahrenheit'>
+              <span>{currentConditions.tempF}</span>
+              <span>°F</span>
             </div>
-          </section>
-        </div >
-      }
+          }
+        </div>
+        <img className='o-icon' src={currentConditions.iconUrl} alt={currentConditions.text} />
+        <span>{currentConditions.text}</span>
+      </section>
+      <section className='l-page__section'>
+        <header className='t3'>Today</header>
+        <div className='l-section__row'>
+        </div>
+      </section>
     </div >
   )
 }
