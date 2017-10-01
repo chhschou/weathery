@@ -48,11 +48,13 @@ class App extends React.Component {
 
   getLvl2Name() {
     const { settings, locations } = this.props
-    if (settings.currentLocationId != -1 && locations[settings]) {
-      const location = locations[settings.currentLocationId]
-      const lvl2 = location.addrComponents.find((component) => component.level == 2)
+    if (settings.currentLocationId != -1) {
+      const location = locations.items[settings.currentLocationId]
+      if (location) {
+        const lvl2 = location.addrComponents.find((component) => component.level == 2)
 
-      return lvl2.longName
+        return lvl2.longName
+      }
     }
 
     return ''
