@@ -15,7 +15,8 @@ export default function (state = initialState, action) {
       return { ...state }
     case actionTypes.RECEIVE:
       state.isFetching.delete(action.locationId)
-      state.items[action.locationId] = action.weather
+      const weather = state.items[action.locationId]
+      state.items[action.locationId] = { ...weather, ...action.weather }
       return { ...state }
     default:
       return state

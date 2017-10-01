@@ -2,6 +2,7 @@ import request from 'superagent'
 import { REQUEST, RECEIVE, UPDATE } from 'modules/weathers/actionTypes'
 import actions from 'actions'
 import { getConditionsUrl, getH10Url, getF10Url } from 'url_builders/wu'
+import adapter from 'adapters/wu'
 
 export const requestWeather = (locationId) => {
   return { type: REQUEST, locationId }
@@ -32,18 +33,24 @@ export const getWeatherViaLocationId = (locationId) => {
   }
 }
 
-const getWeather = (locationId, lat, lng) => {
+const getWeather = (locationId) => {
   return (dispatch, getState) => {
     const { settings, locations } = getState()
     const location = locations.items[locationId]
     const { lat, lng } = location.coords
-    const requestUrl = getConditionsUrl(lat, lng, settings.weatherApiKey)
-    return request.get(requestUrl)
-      .then((res) => {
-        dispatch(receiveWeather(location.id, res.body))
-      })
-      .catch((err) => {
-        dispatch(actions.error.setError(err))
+    const requests = [
+      request.get(getConditionsUrl(lat, lng, settings.weatherApiKey)), 
+      request.get(getH10Url(lat, lng, settings.weatherApiKey)),
+      request.get(getF10Url(lat, lng, settings.weatherApiKey)),
+    ]
+    return Promise.all(requests)
+      .then((results) => {
+        const weather = {
+          currentConditions: adapter.getConditions(results[0].body),
+          h10: adapter.getForecastHours(results[1].body),
+          f10: adapter.getForecastDays(results[2].body)
+        }
+        return dispatch(receiveWeather(location.id, weather))
       })
   }
 }

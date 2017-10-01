@@ -6,7 +6,7 @@ import { Weather } from 'modules/weathers/components/Weather'
 import { getConditions } from '../data/wu.js'
 
 test('weather component renders', () => {
-  const data = getConditions()
+  const data = { currentConditions: getConditions() }
   const wrapper = shallow(<Weather weather={data} />)
   expect(wrapper.find('.weather').length).toBe(1)
 })
