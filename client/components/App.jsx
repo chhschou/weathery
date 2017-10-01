@@ -46,26 +46,28 @@ class App extends React.Component {
     return false
   }
 
-  getLvl2Name() {
+  getLocationLongNames() {
     const { settings, locations } = this.props
     if (settings.currentLocationId != -1) {
       const location = locations.items[settings.currentLocationId]
       if (location) {
-        const lvl2 = location.addrComponents.find((component) => component.level == 2)
-
-        return lvl2.longName
+        return location.addrComponents.reduce((accu, component) => {
+          accu[component.level] = component.longName
+          return accu
+        }
+        , {})
       }
     }
-
-    return ''
   }
 
   render() {
+    const locationNames = this.getLocationLongNames() || Array(3).fill('')
     return (
       <Router>
         <div className='app-container'>
           <header className='l-header c-header'>
-            <h1>{this.getLvl2Name()}</h1>
+            <h1>{locationNames[2]}</h1>
+            <h3>{locationNames[0]}</h3>
             <button className='o-header__button'>Search</button>
           </header>
           {this.props.error.msg && <Error msg={this.props.error.msg} />}
