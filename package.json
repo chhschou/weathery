@@ -8,8 +8,8 @@
     "dev": "nodemon --watch server server/index & webpack --config client/webpack.config.js --watch",
     "dev-client": "webpack-dev-server --hot --inline --content-base public",
     "start": "node server/index",
-    "test": "jest --coverage -- ",
-    "test:watch": "jest --watch -- ",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "h:deploy": "git push heroku master",
     "h:migrate": "heroku run knex migrate:latest",
     "h:rollback": "heroku run knex migrate:rollback",
@@ -27,7 +27,7 @@
     "moduleDirectories": [
       "node_modules",
       "client",
-      "common"
+      "shared"
     ],
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/tests/__mocks__/styleMock.js",

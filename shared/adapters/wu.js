@@ -13,7 +13,7 @@ function getConditions(rawResponse) {
   return data
 }
 
-function getForecastDay(rawResponse) {
+function getForecastDays(rawResponse) {
   const rawTextForecasts = rawResponse.forecast.txt_forecast.forecastday
   const data = []
   rawTextForecasts
@@ -60,6 +60,6 @@ function getForecastHours(rawResponse) {
 
 module.exports = {
   getConditions,
-  getForecastDay,
+  getForecastDays,
   getForecastHours
 }

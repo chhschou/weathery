@@ -40,8 +40,17 @@ function getBounds(rawResponse) {
   }
 }
 
+function getCoords(rawResponse) {
+  const apiResult = rawResponse.results
+  if (apiResult.length >= 1) {
+    const coords = apiResult[0].geometry.location
+    return coords
+  }
+}
+
 function extractLocation(rawResponse) {
   return {
+    coords: getCoords(rawResponse),
     addrComponents: getAddrComponents(rawResponse),
     bounds: getBounds(rawResponse)
   }
