@@ -37,7 +37,7 @@ module.exports = {
     modules: [
       'node_modules',
       'client',
-      'common'
+      'shared'
     ]
   },
   devtool: 'source-map',
@@ -45,7 +45,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('bundle.css'),
     new webpack.DefinePlugin({
-      'process.env.OPENWEATHERMAP_APIKEY': JSON.stringify(process.env.OPENWEATHERMAP_APIKEY),
+      'process.env.WUNDERGROUND_APIKEY': JSON.stringify(process.env.WUNDERGROUND_APIKEY),
       'process.env.G_GEOCODE_APIKEY': JSON.stringify(process.env.G_GEOCODE_APIKEY),
       'process.env.SIMULATE_API': JSON.stringify(process.env.SIMULATE_API)
     })

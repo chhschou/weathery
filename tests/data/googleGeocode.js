@@ -1,4 +1,4 @@
-const adapter = require('../../common/adapters/googleGeocode')
+const adapter = require('adapters/googleGeocode')
 const rawResponse = require('./g_geocode_-41.29,174.78.json')
 
 function extractLocation() {
