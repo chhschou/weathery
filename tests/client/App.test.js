@@ -1,16 +1,17 @@
-import {shallow, mount} from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import configureMockStore from 'redux-mock-store'
 
 import React from 'react'
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 import App from '../../client/components/App'
 
 const mockStore = configureMockStore()
 
 test('App rendered', () => {
   const store = mockStore({
-    locations: [],
-    weathers: [],
+    locations: {},
+    weathers: {},
+    settings: { currentLocationId: -1 },
     error: {}
   })
 

@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 
 import weathers from 'modules/weathers'
 const { Weather } = weathers.components
-const { setWeatherViaLatLon, receiveWeather } = weathers.actions
+const { getWeatherViaLocationId, receiveWeather } = weathers.actions
 import Error from 'components/Error'
 import locations from 'modules/locations'
-const { getUserLocation, isUserLocationAvailable, getLocationViaLatLon } = locations.actions
+const { getUserLocation, isUserLocationAvailable, getLocationViaLatLon, receiveLocation } = locations.actions
 import settings from 'modules/settings'
+const { updateCurrentLocationId } = settings.actions
 import { clearError, setError } from 'actions/error'
 import headerCSS from './header.css'
 
@@ -18,41 +19,37 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { currentLocationId, dispatch } = this.props
-    if (currentLocationId == -1 && this.props.isUserLocationAvailable()) {
+    const { settings, dispatch } = this.props
+    if (settings.currentLocationId == -1 && isUserLocationAvailable()) {
+      const locationId = 0 // 0 for user location
       getUserLocation()
         .then((position) => {
           dispatch(clearError())
           const { latitude, longitude } = position.coords
-          dispatch(getLocationViaLatLon(latitude, longitude))
-            .then(() => {
-
-              return dispatch(settings.actions.updateCurrentLocationId(0)) // 0 for user location
-            })
-            .then(() => {
-              // save this geocode as id 0
-              dispatch(weather.actions.getWeatherViaLocationId(location.id))
-
-            })
+          return dispatch(getLocationViaLatLon(latitude, longitude, locationId))
         })
+        .then((action) => dispatch(updateCurrentLocationId(action.location.id)))
+        .then((action) => dispatch(getWeatherViaLocationId(action.locationId)))
         .catch((err) => {
-          this.props.dispatch(setError(err))
+          console.error(err)
+          return dispatch(setError(err))
         })
     }
   }
 
   hasWeatherToRender() {
-    const { currentLocationId } = this.props
-    if (currentLocationId != -1) {
-      return this.props.weathers[currentLocationId] != null
+    const { settings, weathers } = this.props
+    if (settings.currentLocationId != -1) {
+      return weathers.items[settings.currentLocationId] != null
     }
 
     return false
   }
 
   getLvl2Name() {
-    if (this.props.currentLocationId != -1 && this.props.locations[this.props.currentLocationId]) {
-      const location = this.props.locations[this.props.currentLocationId]
+    const { settings, locations } = this.props
+    if (settings.currentLocationId != -1 && locations[settings]) {
+      const location = locations[settings.currentLocationId]
       const lvl2 = location.addrComponents.find((component) => component.level == 2)
 
       return lvl2.longName
@@ -61,17 +58,11 @@ class App extends React.Component {
     return ''
   }
 
-  toggleMenu() {
-    console.log('toggle')
-  }
-
-
   render() {
     return (
       <Router>
         <div className='app-container'>
           <header className='l-header c-header'>
-            <button className='o-header__button' onClick={this.toggleMenu.bind(this)}>|||</button>
             <h1>{this.getLvl2Name()}</h1>
             <button className='o-header__button'>Search</button>
           </header>
@@ -87,7 +78,7 @@ function mapStateToProps(state) {
   return {
     weathers: state.weathers,
     locations: state.locations,
-    currentLocationId: state.settings.currentLocationId,
+    settings: state.settings,
     error: state.error
   }
 }
