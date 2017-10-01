@@ -14,7 +14,7 @@ export default function (state = initialState, action) {
     case actionTypes.UPDATE_ISCELSIUS:
       return { ...state, isCelsius: action.isCelsius }
     case actionTypes.UPDATE_CURRENT_LOCATION_ID:
-      return { ...state, currentLocationId: action.currentLocationId }
+      return { ...state, currentLocationId: action.locationId }
     default:
       return state
   }

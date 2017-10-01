@@ -16,7 +16,7 @@ test('current location id updates correctly', () => {
   const expected = 2
   const action = {
     type: settings.actionTypes.UPDATE_CURRENT_LOCATION_ID,
-    currentLocationId: expected
+    locationId: expected
   }
 
   const nextState = settings.reducer(undefined, action)
