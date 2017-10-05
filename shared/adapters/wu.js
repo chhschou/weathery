@@ -1,3 +1,20 @@
+function getLocation(rawResponse) {
+  // take location out of a current observation stream
+  const raw = rawResponse.current_observation
+  const data = {
+    timeStamp: raw.observation_epoch,
+    displayCity: raw.display_location.city,
+    displayFull: raw.display_location.full,
+    coords: {
+      lat: raw.display_location.latitude,
+      lng: raw.display_location.longitude,
+      elev: raw.display_location.elevation
+    },
+    observeCity: raw.observation_location.city,
+  }
+
+}
+
 function getConditions(rawResponse) {
   const raw = rawResponse.current_observation
   const data = {
@@ -30,12 +47,12 @@ function getForecastDays(rawResponse) {
   rawSimpleForecasts.forEach((t, i) => {
     const item = data[i]
     item.timeStamp = t.date.epoch,
-    item.tempHighF = t.high.fahrenheit,
-    item.tempHighC = t.high.celsius,
-    item.tempLowF = t.low.fahrenheit,
-    item.tempLowC = t.low.celsius,
-    item.iconUrl = t.icon_url,
-    item.text = t.conditions
+      item.tempHighF = t.high.fahrenheit,
+      item.tempHighC = t.high.celsius,
+      item.tempLowF = t.low.fahrenheit,
+      item.tempLowC = t.low.celsius,
+      item.iconUrl = t.icon_url,
+      item.text = t.conditions
   })
 
   return data
@@ -59,6 +76,7 @@ function getForecastHours(rawResponse) {
 }
 
 module.exports = {
+  getLocation,
   getConditions,
   getForecastDays,
   getForecastHours
