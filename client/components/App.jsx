@@ -2,15 +2,18 @@ import React from 'react'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import user from 'modules/user'
+const { getUserLocationAndWeather } = user.actions
 import weathers from 'modules/weathers'
 const { Weather } = weathers.components
-const { getWeatherViaLocationId, receiveWeather } = weathers.actions
+const { getForecastViaLocationId, receiveWeather } = weathers.actions
 import Error from 'components/Error'
 import locations from 'modules/locations'
-const { getUserLocation, isUserLocationAvailable, getLocationViaLatLon, receiveLocation } = locations.actions
+const { getUserLocation, isUserLocationAvailable, receiveLocation } = locations.actions
 import settings from 'modules/settings'
 const { updateCurrentLocationId } = settings.actions
-import { clearError, setError } from 'actions/error'
+import actions from 'actions'
+const { clearError, setError } = actions.error
 import headerCSS from './header.css'
 
 class App extends React.Component {
@@ -19,22 +22,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { settings, dispatch } = this.props
-    if (settings.currentLocationId == -1 && isUserLocationAvailable()) {
-      const locationId = 0 // 0 for user location
-      getUserLocation()
-        .then((position) => {
-          dispatch(clearError())
-          const { latitude, longitude } = position.coords
-          return dispatch(getLocationViaLatLon(latitude, longitude, locationId))
-        })
-        .then((action) => dispatch(updateCurrentLocationId(action.location.id)))
-        .then((action) => dispatch(getWeatherViaLocationId(action.locationId)))
-        .catch((err) => {
-          console.error(err)
-          return dispatch(setError(err))
-        })
-    }
+    const { settings, initialize, getLocationAndWeather, dispatch } = this.props
+    if (settings.currentLocationId == -1 && isUserLocationAvailable())
+      initialize()
+        .then(() => getLocationAndWeather(0))
   }
 
   hasWeatherToRender() {
@@ -46,28 +37,21 @@ class App extends React.Component {
     return false
   }
 
-  getLocationLongNames() {
+  getLocationNames() {
     const { settings, locations } = this.props
-    if (settings.currentLocationId != -1) {
-      const location = locations.items[settings.currentLocationId]
-      if (location) {
-        return location.addrComponents.reduce((accu, component) => {
-          accu[component.level] = component.longName
-          return accu
-        }
-        , {})
-      }
-    }
+    console.log(settings, locations)
+    const location = locations.items[settings.currentLocationId]
+    return location ? location : { displayCity: '', observeCity: '' }
   }
 
   render() {
-    const locationNames = this.getLocationLongNames() || Array(3).fill('')
+    const { displayCity, observeCity } = this.getLocationNames()
     return (
       <Router>
         <div className='app-container'>
           <header className='l-header c-header'>
-            <h1>{locationNames[2]}</h1>
-            <h3>{locationNames[0]}</h3>
+            <h1>{displayCity}</h1>
+            <h3>{observeCity}</h3>
             <button className='o-header__button'>Search</button>
           </header>
           {this.props.error.msg && <Error msg={this.props.error.msg} />}
@@ -87,4 +71,25 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(App)
+function mapDispatchToProps(dispatch) {
+  return {
+    initialize: () => {
+      return getUserLocation()
+        .then((position) => {
+          dispatch(clearError())
+          const { latitude, longitude } = position.coords
+          return dispatch(getUserLocationAndWeather(latitude, longitude))
+        })
+    },
+    getLocationAndWeather: (locationId) => {
+      dispatch(updateCurrentLocationId(locationId))
+      dispatch(getForecastViaLocationId(locationId))
+        .catch((err) => {
+          console.error(err)
+          dispatch(setError(err))
+        })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

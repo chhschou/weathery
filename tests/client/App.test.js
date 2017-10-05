@@ -9,7 +9,7 @@ const mockStore = configureMockStore()
 
 test('App rendered', () => {
   const store = mockStore({
-    locations: {},
+    locations: { items: [] },
     weathers: {},
     settings: { currentLocationId: -1 },
     error: {}

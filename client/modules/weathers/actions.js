@@ -1,4 +1,6 @@
 import request from 'superagent'
+
+import locations from 'modules/locations'
 import { REQUEST, RECEIVE, UPDATE } from 'modules/weathers/actionTypes'
 import actions from 'actions'
 import { getConditionsUrl, getH10Url, getF10Url } from 'url_builders/wu'
@@ -16,41 +18,62 @@ export const updateWeather = (weather) => {
   return { type: UPDATE, weather }
 }
 
-export const getWeatherViaLocationId = (locationId) => {
+export function getCurrentConditions(lat, lng, locationId) {
+  return (dispatch, getState) => {
+    const { settings } = getState()
+    dispatch(requestWeather(locationId))
+    const url = getConditionsUrl(lat, lng, settings.weatherApiKey)
+    return request.get(url)
+      .then((result) => {
+        // update location via data obtain from current conditions
+        updateLocation(locationId, result.body, dispatch)
+        const weather = {
+          currentConditions: adapter.getConditions(result.body)
+        }
+        dispatch(receiveWeather(locationId, weather))
+      })
+  }
+}
+
+function updateLocation(locationId, rawResponse, dispatch) {
+  dispatch(locations.actions.requestLocation())
+  const location = {
+    id: locationId,
+    ...(adapter.getLocation(rawResponse))
+  }
+  dispatch(locations.actions.receiveLocation(location))
+}
+
+export function getForecastViaLocationId(locationId) {
   return (dispatch, getState) => {
     const { weathers, locations } = getState()
     const weatherAtLocation = weathers.items[locationId]
     if (weatherAtLocation) {
-      // check it isn't stale
-      // assume not for now
+      // todo check it isn't stale, call api if required
+      return new Promise((resolve, reject) => {}) 
     } else {
-      const location = locations.items[locationId]
-      if (location) {
-        dispatch(requestWeather(location.id))
-        return dispatch(getWeather(location.id))
-      }
+      dispatch(requestWeather(locationId))
+      return dispatch(getForecast(locationId))
     }
   }
 }
 
-const getWeather = (locationId) => {
+const getForecast = (locationId) => {
   return (dispatch, getState) => {
     const { settings, locations } = getState()
     const location = locations.items[locationId]
     const { lat, lng } = location.coords
     const requests = [
-      request.get(getConditionsUrl(lat, lng, settings.weatherApiKey)), 
       request.get(getH10Url(lat, lng, settings.weatherApiKey)),
       request.get(getF10Url(lat, lng, settings.weatherApiKey)),
     ]
     return Promise.all(requests)
       .then((results) => {
         const weather = {
-          currentConditions: adapter.getConditions(results[0].body),
-          h10: adapter.getForecastHours(results[1].body),
-          f10: adapter.getForecastDays(results[2].body)
+          h10: adapter.getForecastHours(results[0].body),
+          f10: adapter.getForecastDays(results[1].body)
         }
-        return dispatch(receiveWeather(location.id, weather))
+        dispatch(receiveWeather(location.id, weather))
       })
   }
 }
