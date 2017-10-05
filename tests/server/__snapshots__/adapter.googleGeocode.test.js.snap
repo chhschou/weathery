@@ -4,19 +4,20 @@ exports[`extractLocation works 1`] = `
 Object {
   "addrComponents": Array [
     Object {
-      "level": 0,
-      "longName": "New Zealand",
-      "shortName": "NZ",
-    },
-    Object {
-      "level": 1,
       "longName": "Wellington",
       "shortName": "Wellington",
     },
     Object {
-      "level": 2,
-      "longName": "Wellington City",
-      "shortName": "Wellington City",
+      "longName": "Wellington",
+      "shortName": "Wellington",
+    },
+    Object {
+      "longName": "Wellington",
+      "shortName": "Wellington",
+    },
+    Object {
+      "longName": "New Zealand",
+      "shortName": "NZ",
     },
   ],
   "bounds": Object {

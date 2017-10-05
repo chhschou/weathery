@@ -5,26 +5,17 @@ function getFullAddr(rawResponse) {
 function getAddrComponents(rawResponse) {
   const apiResult = rawResponse.results
   if (apiResult.length >= 2) {
-    const addrComponents = apiResult[1].address_components
+    const componentTags = /^country|^administrative_area_level|^sublocality|^locality/ 
+    const addrComponents = apiResult[0].address_components
       .filter((component) => !component.types.includes('postal_code'))
-      .filter((component) => component.types.find((type) => type.search(/^country|^administrative_area_level/) != -1
+      .filter((component) => component.types.find((type) => componentTags.test(type)
       ))
       .reduce((components, address) => {
-        const type = address.types.find((type) => type.search(/^country|^administrative_area_level/) != -1)
-        const component = {}
-        switch (type) {
-          case 'country':
-            component.level = 0
-            break
-          default:
-            const match = type.match(/\d+$/)
-            if (match) component.level = Number(match[0])
+        const component = {
+          longName: address.long_name,
+          shortName: address.short_name
         }
-
-        component.longName = address.long_name
-        component.shortName = address.short_name
-        components[component.level] = component
-
+        components.push(component) 
         return components
       }, [])
 
