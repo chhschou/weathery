@@ -9,12 +9,15 @@
       "*": [
         "*",
         "client/*",
+        "server/*",
         "shared/*"
       ]
     }
   },
   "include": [
-    "client/**/*.(js|jsx)",
-    "shared/**/*.js"
+    "client/**/*",
+    "server/**/*",
+    "shared/**/*",
+    "tests/**/*"
   ]
 }
