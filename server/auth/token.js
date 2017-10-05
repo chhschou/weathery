@@ -11,7 +11,6 @@ function issue(req, res, next) {
 
   getUserByName(username)
     .then((user) => {
-      console.log(user)
       const token = createToken(user, process.env.JWT_SECRET)
       res.json({
         message: 'Auth successful',
