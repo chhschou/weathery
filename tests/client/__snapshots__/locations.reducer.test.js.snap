@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handles RECEIVE action 1`] = `
+Object {
+  "coords": Object {
+    "elev": "7.9",
+    "lat": "-41.29000092",
+    "lng": "174.77999878",
+  },
+  "displayCity": "Wellington",
+  "displayFull": "Wellington, New Zealand",
+  "id": 0,
+  "observeCity": "Taranaki Street Wharf",
+  "observeFull": "Taranaki Street Wharf, Wellington",
+  "timeStamp": "1504869815",
+}
+`;
+
+exports[`handles update location with specific id 1`] = `
+Object {
+  "coords": Object {
+    "elev": "7.9",
+    "lat": "-41.29000092",
+    "lng": "174.77999878",
+  },
+  "displayCity": "Wellington",
+  "displayFull": "Wellington, New Zealand",
+  "id": 5,
+  "observeCity": "Taranaki Street Wharf",
+  "observeFull": "Taranaki Street Wharf, Wellington",
+  "timeStamp": "1504869815",
+}
+`;

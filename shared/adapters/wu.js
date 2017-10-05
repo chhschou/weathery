@@ -10,9 +10,11 @@ function getLocation(rawResponse) {
       lng: raw.display_location.longitude,
       elev: raw.display_location.elevation
     },
-    observeCity: raw.observation_location.city,
+    observeCity: raw.observation_location.city.substring(0, raw.observation_location.city.indexOf(',')),
+    observeFull: raw.observation_location.city
   }
 
+  return data
 }
 
 function getConditions(rawResponse) {

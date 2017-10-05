@@ -12,7 +12,20 @@ Object {
 }
 `;
 
-exports[`wu data adaptor works 2`] = `undefined`;
+exports[`wu data adaptor works 2`] = `
+Object {
+  "coords": Object {
+    "elev": "7.9",
+    "lat": "-41.29000092",
+    "lng": "174.77999878",
+  },
+  "displayCity": "Wellington",
+  "displayFull": "Wellington, New Zealand",
+  "observeCity": "Taranaki Street Wharf",
+  "observeFull": "Taranaki Street Wharf, Wellington",
+  "timeStamp": "1504869815",
+}
+`;
 
 exports[`wu data adaptor works 3`] = `
 Array [
