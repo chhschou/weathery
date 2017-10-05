@@ -30,20 +30,3 @@ export const getLocationViaAddr = (lvl2Addr, country) => {
 export function editLocation(location) {
   return { type: types.EDIT, location }
 }
-
-export const getLocationViaLatLon = (lat, lng, locationId) => {
-  return (dispatch, getState) => {
-    dispatch(requestLocation())
-    const apiKey = process.env.G_GEOCODE_APIKEY
-    const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json'
-    const url = `${baseUrl}?latlng=${lat},${lng}&key=${apiKey}`
-    return request.get(url)
-      .then((geoCodeRes) => {
-        const location = {
-          id: locationId,
-          ...(adapter.extractLocation(geoCodeRes.body))
-        }
-        return dispatch(receiveLocation(location))
-      })
-  }
-}
