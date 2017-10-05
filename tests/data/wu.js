@@ -1,6 +1,11 @@
 const adapter = require('adapters/wu')
 const rawResponse = require('./wu.json')
 
+function getLocation() {
+  // https://api.wunderground.com/api/<apikey>/conditions/q/new_zealand/Wellington.json
+  return adapter.getLocation(rawResponse.conditions)
+}
+
 function getConditions() {
   // https://api.wunderground.com/api/<apikey>/conditions/q/new_zealand/Wellington.json
   return adapter.getConditions(rawResponse.conditions)
@@ -17,6 +22,7 @@ function getForecastHours() {
 }
 
 module.exports = {
+  getLocation,
   getConditions,
   getForecastDays,
   getForecastHours
