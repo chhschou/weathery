@@ -59,6 +59,20 @@ export const Weather = ({ location, weather, isCelsius }) => {
                 )
               })
             }
+            {(h10 && tabsSelectedIndex === 1) &&
+              h10.map((forecast) => {
+                const date = moment.unix(forecast.timeStamp)
+                return (
+                  <div>
+                    <span>{date.format('h a')}</span>
+                    <img src={forecast.iconUrl} alt={forecast.text} />
+                    <Temp isCelsius={isCelsius} c={forecast.tempC} f={forecast.tempF} />
+                    <span>Feels like</span>
+                    <Temp isCelsius={isCelsius} c={forecast.feelslikeC} f={forecast.feelslikeF} />
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       </section>
