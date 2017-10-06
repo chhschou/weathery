@@ -49,12 +49,12 @@ function getForecastDays(rawResponse) {
   rawSimpleForecasts.forEach((t, i) => {
     const item = data[i]
     item.timeStamp = t.date.epoch,
-      item.tempHighF = t.high.fahrenheit,
-      item.tempHighC = t.high.celsius,
-      item.tempLowF = t.low.fahrenheit,
-      item.tempLowC = t.low.celsius,
-      item.iconUrl = t.icon_url,
-      item.text = t.conditions
+    item.highF = t.high.fahrenheit,
+    item.highC = t.high.celsius,
+    item.lowF = t.low.fahrenheit,
+    item.lowC = t.low.celsius,
+    item.iconUrl = t.icon_url,
+    item.text = t.conditions
   })
 
   return data
