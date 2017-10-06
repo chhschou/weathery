@@ -47,14 +47,9 @@ function updateLocation(locationId, rawResponse, dispatch) {
 export function getForecastViaLocationId(locationId) {
   return (dispatch, getState) => {
     const { weathers, locations } = getState()
-    const weatherAtLocation = weathers.items[locationId]
-    if (weatherAtLocation) {
-      // todo check it isn't stale, call api if required
-      return new Promise((resolve, reject) => {}) 
-    } else {
-      dispatch(requestWeather(locationId))
-      return dispatch(getForecast(locationId))
-    }
+    // todo check it isn't stale, call api if required
+    dispatch(requestWeather(locationId))
+    return dispatch(getForecast(locationId))
   }
 }
 
