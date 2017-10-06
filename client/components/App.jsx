@@ -39,7 +39,6 @@ class App extends React.Component {
 
   getLocationNames() {
     const { settings, locations } = this.props
-    console.log(settings, locations)
     const location = locations.items[settings.currentLocationId]
     return location ? location : { displayCity: '', observeCity: '' }
   }
