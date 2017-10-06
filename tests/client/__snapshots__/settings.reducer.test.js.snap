@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`settings has correct initial state 1`] = `
+Object {
+  "currentLocationId": -1,
+  "geocodeApiKey": "AIzaSyByY6eucpVZ6TJuVx8wAj4DDkUbsIFvf7s",
+  "isCelsius": false,
+  "weatherApiKey": "e343e791bbf3ec21",
+}
+`;

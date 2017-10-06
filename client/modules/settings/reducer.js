@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes'
 
 const initialState = {
-  isCelsius: true,
+  isCelsius: false,
   currentLocationId: -1,
   weatherApiKey: process.env.WUNDERGROUND_APIKEY,
   geocodeApiKey: process.env.G_GEOCODE_APIKEY

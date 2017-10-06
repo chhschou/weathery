@@ -1,15 +1,8 @@
 import settings from 'modules/settings'
 
 test('settings has correct initial state', () => {
-  const expected = {
-    isCelsius: true,
-    currentLocationId: -1,
-    weatherApiKey: process.env.WUNDERGROUND_APIKEY,
-    geocodeApiKey: process.env.G_GEOCODE_APIKEY
-  }
-
   const nextState = settings.reducer(undefined, {})
-  expect(nextState).toEqual(expected)
+  expect(nextState).toMatchSnapshot()
 })
 
 test('current location id updates correctly', () => {
