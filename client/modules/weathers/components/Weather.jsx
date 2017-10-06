@@ -3,6 +3,12 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 
 import css from './weather.css'
+import Temp from './objects/Temp'
+import TempRange from './TempRange'
+
+const state = {
+  tabsSelectedIndex: 1,
+}
 
 function getLocationImgSrc(coord) {
   const imgSrc = `https://maps.googleapis.com/maps/api/staticmap?center=${coord.lat},${coord.lng}&zoom=13&size=300x300&sensor=false`
@@ -14,27 +20,46 @@ export const Weather = ({ location, weather, isCelsius }) => {
   return (
     <div className='l-wrap weather' >
       <section className='l-page__section c-page__section'>
-        <header className='o-datetime t3'>{moment.unix(currentConditions.timeStamp).toString()}</header>
         <div className='c-temp'>
-          {isCelsius
-            ?
-            <div className='o-temp--celsius'>
-              <span>{currentConditions.tempC}</span>
-              <span>°C</span>
+          {currentConditions && (
+            <div className=''>
+              <Temp isCelsius={isCelsius} f={currentConditions.tempF} c={currentConditions.tempC} />
             </div>
-            :
-            <div className='o-temp--fahrenheit'>
-              <span>{currentConditions.tempF}</span>
-              <span>°F</span>
-            </div>
-          }
+          )}
+          {f10 && (<TempRange isCelsius={isCelsius} range={f10[0]} />)}
+          <img className='o-icon' src={currentConditions.iconUrl} alt={currentConditions.text} />
+          <span>{currentConditions.text}</span>
         </div>
-        <img className='o-icon' src={currentConditions.iconUrl} alt={currentConditions.text} />
-        <span>{currentConditions.text}</span>
       </section>
       <section className='l-page__section'>
-        <header className='t3'>Today</header>
-        <div className='l-section__row'>
+        <div className='container'>
+          <div className='tabs'>
+            <ul>
+              <li className='is-active'><a>
+                <span className="icon is-small"><i className="fa fa-calendar"></i></span>
+                <span>Day</span>
+              </a></li>
+              <li><a>
+                <span className="icon is-small"><i className="fa fa-clock-o"></i></span>
+                <span>Hour</span>
+              </a></li>
+            </ul>
+          </div>
+          <div>
+            {(f10 && tabsSelectedIndex === 0) &&
+              f10.map((forecast) => {
+                const date = moment.unix(forecast.timeStamp)
+                return (
+                  <div>
+                    <span>{date.day()}</span>
+                    <span>{date.date()}</span>
+                    <img src={forecast.iconUrl} alt={forecast.text} />
+                    <TempRange isCelsius={isCelsius} range={forecast} />
+                  </div>
+                )
+              })
+            }
+          </div>
         </div>
       </section>
     </div >
