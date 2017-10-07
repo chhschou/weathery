@@ -2,6 +2,7 @@ import React from 'react'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import styles from 'styles/styles.css'
 import user from 'modules/user'
 const { getUserLocationAndWeather } = user.actions
 import weathers from 'modules/weathers'
@@ -14,7 +15,7 @@ import settings from 'modules/settings'
 const { updateCurrentLocationId } = settings.actions
 import actions from 'actions'
 const { clearError, setError } = actions.error
-import headerCSS from './header.css'
+import headerStyles from './Header.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -49,9 +50,18 @@ class App extends React.Component {
       <Router>
         <div className='app-container'>
           <header className='l-header c-header'>
-            <h1>{displayCity}</h1>
-            <h3>{observeCity}</h3>
-            <button className='o-header__button'>Search</button>
+            <div className='l-column'>
+              <button className='button is-large o-header__button'><span className="icon"><i className="fa fa-dot-circle-o"></i></span></button>
+            </div>
+            <div className='l-column'>
+              <h1 className='title'>{displayCity}</h1>
+              <h3 className='subtitle is-6'>{observeCity}</h3>
+            </div>
+            <div className='l-column'>
+              <div className='c-right'>
+                <button className='button is-large o-header__button'><span className="icon"><i className="fa fa-search"></i></span></button>
+              </div>
+            </div>
           </header>
           {this.props.error.msg && <Error msg={this.props.error.msg} />}
           {this.hasWeatherToRender() && <Weather />}

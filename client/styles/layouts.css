@@ -11,7 +11,45 @@
 }
 
 
-.l-page__section {
+.c-section {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
+}
+
+.l-half {
+  grid-column-end: span 6;
+}
+
+.c-columns {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.c-column--4 {
+  grid-column: auto / span 4;
+}
+
+.c-column--3 {
+  grid-column: auto / span 3;
+}
+
+.c-column--6 {
+  grid-column: auto / span 6;
+}
+
+.c-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.c-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.c-center {
+  display: flex;
+  justify-content: center;
 }
