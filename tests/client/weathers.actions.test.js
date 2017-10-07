@@ -13,26 +13,25 @@ import adapter from 'adapters/wu'
 const middleware = [thunk]
 const mockStore = configureMockStore(middleware)
 describe('weathers actions', () => {
+  const lat = -41.29, lng = 174.78, locationId = 1
+
   afterEach(() => {
     nock.cleanAll()
   })
 
   test('getForecastViaLocationId action creator works', () => {
-    // nock(getBase())
-    //   .get(getApiFragment('conditions', process.env.WUNDERGROUND_APIKEY, -41.29, 174.78))
-    //   .reply(200, rawResponse.conditions)
     nock(getBase())
-      .get(getApiFragment('hourly10day', process.env.WUNDERGROUND_APIKEY, -41.29, 174.78))
+      .get(getApiFragment('hourly10day', process.env.WUNDERGROUND_APIKEY, lat, lng))
       .reply(200, rawResponse.h10)
     nock(getBase())
-      .get(getApiFragment('forecast10day', process.env.WUNDERGROUND_APIKEY, -41.29, 174.78))
+      .get(getApiFragment('forecast10day', process.env.WUNDERGROUND_APIKEY, lat, lng))
       .reply(200, rawResponse.f10)
 
     const expectedActionCreators = [
-      { type: weathers.actionTypes.REQUEST, locationId: 1 },
+      { type: weathers.actionTypes.REQUEST, locationId },
       {
         type: weathers.actionTypes.RECEIVE,
-        locationId: 1,
+        locationId,
         weather: {
           f10: getForecastDays(),
           h10: getForecastHours()
@@ -42,7 +41,7 @@ describe('weathers actions', () => {
 
     const store = mockStore({
       locations: {
-        items: [undefined, { id: 1, coords: { lat: -41.29, lng: 174.78 } }]
+        items: [undefined, { id: locationId, coords: { lat, lng } }]
       },
       weathers: {
         items: {}
@@ -52,14 +51,13 @@ describe('weathers actions', () => {
       }
     })
 
-    return store.dispatch(weathers.actions.getForecastViaLocationId(1))
+    return store.dispatch(weathers.actions.getForecastViaLocationId(locationId))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActionCreators)
       })
   })
 
   test('getCurrentConditions action creator works', () => {
-    const lat = -41.29, lng = 174.78, locationId = 1
     nock(getBase())
       .get(getApiFragment('conditions', process.env.WUNDERGROUND_APIKEY, lat, lng))
       .reply(200, rawResponse.conditions)
