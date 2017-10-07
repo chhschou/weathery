@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import settings from 'modules/settings'
 
 test('settings has correct initial state', () => {
