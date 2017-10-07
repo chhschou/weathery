@@ -1,0 +1,21 @@
+.c-temprange {
+  --hightemp-color: red;
+  --lowtemp-color: blue;
+}
+
+.c-temprange div.o-temp:nth-child(1) {
+  color: var(--hightemp-color);
+}
+
+.c-temprange div.o-temp:nth-child(2) {
+  color: var(--lowtemp-color);
+}
+
+.c-temprange.is-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.is-row div.o-temp:nth-child(2)::before {
+  content: "\00a0 / \00a0";
+}
