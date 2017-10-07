@@ -10,6 +10,12 @@
   padding-right: 1rem;
 }
 
+.l-flex-container {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+}
+
 
 .c-section {
   display: grid;

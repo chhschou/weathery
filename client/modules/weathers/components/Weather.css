@@ -1,10 +1,23 @@
 
-.c-temp {
-  grid-column: 1 / -1;
-  display: grid;
-  justify-content: space-between;
+.c-feelslike {
+  display: flex;
+  flex-direction: row;
 }
 
+.c-feelslike > span::after {
+  content: "\00a0"
+}
+
+.c-condition > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.c-condition > .c-main > .c-body {
+  margin: 0 auto;
+  text-align: center;
+}
 
 
 .weather-details {
