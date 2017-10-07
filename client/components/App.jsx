@@ -53,7 +53,7 @@ class App extends React.Component {
             <div className='l-column'>
               <button className='button is-large o-header__button'><span className="icon"><i className="fa fa-dot-circle-o"></i></span></button>
             </div>
-            <div className='l-column'>
+            <div className='l-column o-location'>
               <h1 className='title'>{displayCity}</h1>
               <h3 className='subtitle is-6'>{observeCity}</h3>
             </div>

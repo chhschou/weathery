@@ -1,5 +1,4 @@
 .l-header {
-  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
@@ -9,7 +8,11 @@
 }
 
 .c-header .l-column {
-  grid-column: auto / span 1;
+  grid-column-end: span 1;
+}
+
+.c-header .o-location {
+  text-align: center;
 }
 
 
