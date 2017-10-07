@@ -37,10 +37,8 @@
   "babel": {
     "presets": [
       "env",
-      "react"
-    ],
-    "plugins": [
-      "transform-object-rest-spread"
+      "react",
+      "stage-0"
     ]
   },
   "repository": {
@@ -81,9 +79,9 @@
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
