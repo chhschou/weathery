@@ -1,0 +1,42 @@
+
+.c-temp {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-content: space-between;
+}
+
+
+
+.weather-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 
+  "city city city city city city"
+  "today today today current current current"
+  "temp temp temp current current current"
+  ;
+  grid-gap: 20px;
+}
+
+ .weather-details .city {
+  grid-area: city;
+  margin: 0 auto;
+}
+
+.weather-details .today {
+  grid-area: today;
+  padding: 1rem;
+  text-align: end;
+}
+
+.weather-details .temp-high {
+  grid-area: temp;
+}
+
+.weather-details .temp-low {
+  grid-area: temp;
+}
+
+.weather-details .current {
+  grid-area: current;
+} 
