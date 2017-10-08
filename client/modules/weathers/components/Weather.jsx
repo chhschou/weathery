@@ -11,7 +11,7 @@ export class Weather extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      tabsSelectedIndex: 1
+      activeForecast: 'forecast-day'
     }
   }
 
@@ -23,18 +23,21 @@ export class Weather extends React.Component {
   handleTabItemClick = (e) => {
     const currentTabItem = e.target.closest('li')
     if (currentTabItem.classList.contains('is-active')) return
-    
+
     const tabs = currentTabItem.parentNode
     tabs.childNodes.forEach((tabItem) => {
-      if (tabItem === currentTabItem) tabItem.classList.add('is-active')
+      if (tabItem === currentTabItem) {
+        tabItem.classList.add('is-active')
+        this.setState({ activeForecast: tabItem.dataset.context })
+      }
       else tabItem.classList.remove('is-active')
-    }) 
+    })
   }
 
   render() {
     const { location, weather, isCelsius } = this.props
     const { currentConditions, h10, f10 } = weather
-    const { tabsSelectedIndex } = this.state
+    const { activeForecast } = this.state
     return (
       <div className='l-wrap weather' >
         <section className='c-section c-condition'>
@@ -58,7 +61,7 @@ export class Weather extends React.Component {
             )}
             {f10 && (
               <div className='is-size-6'>
-                <TempRange isRow={true} isCelsius={isCelsius} range={f10[0]} />
+                <TempRange isRow isCelsius={isCelsius} range={f10[0]} />
               </div>
             )}
             {currentConditions && (
@@ -71,24 +74,24 @@ export class Weather extends React.Component {
         </section>
         <section className='c-section'>
           <div className='l-flex-container'>
-            <div className='tabs is-centered is-toggle'>
+            <div className='tabs is-centered'>
               <ul>
-                <li className='is-active' onClick={this.handleTabItemClick}><a>
+                <li className='is-active' data-context='forecast-day' onClick={this.handleTabItemClick}><a>
                   <span className="icon is-small"><i className="fa fa-calendar"></i></span>
                   <span>Day</span>
                 </a></li>
-                <li onClick={this.handleTabItemClick}><a>
+                <li data-context='forecast-hour' onClick={this.handleTabItemClick}><a>
                   <span className="icon is-small"><i className="fa fa-clock-o"></i></span>
                   <span>Hour</span>
                 </a></li>
               </ul>
             </div>
             <div>
-              {(f10 && tabsSelectedIndex === 0) &&
-                f10.map((forecast) => {
+              {(f10 && activeForecast === "forecast-day") &&
+                f10.map((forecast, i) => {
                   const date = moment.unix(forecast.timeStamp)
                   return (
-                    <div>
+                    <div key={i}>
                       <span>{date.day()}</span>
                       <span>{date.date()}</span>
                       <img src={forecast.iconUrl} alt={forecast.text} />
@@ -97,11 +100,11 @@ export class Weather extends React.Component {
                   )
                 })
               }
-              {(h10 && tabsSelectedIndex === 1) &&
-                h10.map((forecast) => {
+              {(h10 && activeForecast === 'forecast-hour') &&
+                h10.map((forecast, i) => {
                   const date = moment.unix(forecast.timeStamp)
                   return (
-                    <div>
+                    <div key={i}>
                       <span>{date.format('h a')}</span>
                       <img src={forecast.iconUrl} alt={forecast.text} />
                       <Temp isCelsius={isCelsius} c={forecast.tempC} f={forecast.tempF} />
