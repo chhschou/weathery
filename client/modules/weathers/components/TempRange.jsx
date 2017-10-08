@@ -5,7 +5,7 @@ import styles from './TempRange.css'
 
 export default function ({ isRow, isCelsius, range }) {
   const { highC, lowC, highF, lowF } = range
-  const classes = 'c-temprange ' + (isRow ? 'is-row' : '')
+  const classes = 'c-temp-range ' + (isRow ? 'is-row' : '')
   return (
     <div className={classes}>
       <Temp isCelsius={isCelsius} c={highC} f={highF} />

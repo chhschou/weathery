@@ -32,12 +32,13 @@
   grid-column-end: span 4;
 }
 
-.c-forecast-day > .o-date {
+.l-forecast-day__span {
   justify-self: start; 
 }
 
-.c-forecast-day > .c-temprange {
+.c-forecast-day > .c-temp-range {
   justify-self: end;
+  font-size: 1.1rem;
 }
 
 .weather-details {

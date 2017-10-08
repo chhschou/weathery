@@ -1,17 +1,17 @@
-.c-temprange {
+.c-temp-range {
   --hightemp-color: red;
   --lowtemp-color: blue;
 }
 
-.c-temprange div.o-temp:nth-child(1) {
+.c-temp-range div.o-temp:nth-child(1) {
   color: var(--hightemp-color);
 }
 
-.c-temprange div.o-temp:nth-child(2) {
+.c-temp-range div.o-temp:nth-child(2) {
   color: var(--lowtemp-color);
 }
 
-.c-temprange.is-row {
+.c-temp-range.is-row {
   display: flex;
   flex-direction: row;
 }
