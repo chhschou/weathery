@@ -91,11 +91,10 @@ export class Weather extends React.Component {
                 f10.map((forecast, i) => {
                   const date = moment.unix(forecast.timeStamp)
                   return (
-                    <div key={i}>
-                      <span>{date.day()}</span>
-                      <span>{date.date()}</span>
+                    <div className='c-forecast-day' key={i}>
+                      <span className='o-date is-uppercase'>{date.format('ddd ') + date.date()}</span>
                       <img src={forecast.iconUrl} alt={forecast.text} />
-                      <TempRange isCelsius={isCelsius} range={forecast} />
+                      <TempRange isRow isCelsius={isCelsius} range={forecast} />
                     </div>
                   )
                 })

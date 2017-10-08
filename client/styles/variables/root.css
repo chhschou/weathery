@@ -1,0 +1,5 @@
+:root {
+  --outer-pad-left: 1rem;
+  --outer-pad-right: 1rem;
+  --outer-min-width: calc(320px - var(--outer-pad-left) - var(--outer-pad-right));
+}

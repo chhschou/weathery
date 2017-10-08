@@ -5,10 +5,12 @@
 /* @import 'helpers/helpers'; */
 
 /* // Variables */
+@import 'variables/root';
 /* @import 'variables/colors'; */
 @import 'variables/typography';
 @import 'variables/breakpoints';
 /* @import 'variables/themes'; // only when necessary */
+
 
 /* // Reset and base files */
 /* @import 'base/base'; */

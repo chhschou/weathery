@@ -1,3 +1,4 @@
+@import '../../../styles/styles.css'; /* with :( */
 
 .c-feelslike {
   display: flex;
@@ -19,6 +20,25 @@
   text-align: center;
 }
 
+.c-forecast-day {
+  --column-width: calc(var(--outer-min-width)/12);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(var(--column-width), 1fr));
+  align-items: center;
+  justify-items: center;
+}
+
+.c-forecast-day > * {
+  grid-column-end: span 4;
+}
+
+.c-forecast-day > .o-date {
+  justify-self: start; 
+}
+
+.c-forecast-day > .c-temprange {
+  justify-self: end;
+}
 
 .weather-details {
   display: grid;
