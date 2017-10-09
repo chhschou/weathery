@@ -10,34 +10,11 @@ import TempRange from './TempRange'
 export class Weather extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      activeForecast: 'forecast-day'
-    }
-  }
-
-  getLocationImgSrc = (coord) => {
-    const imgSrc = `https://maps.googleapis.com/maps/api/staticmap?center=${coord.lat},${coord.lng}&zoom=13&size=300x300&sensor=false`
-    return imgSrc
-  }
-
-  handleTabItemClick = (e) => {
-    const currentTabItem = e.target.closest('li')
-    if (currentTabItem.classList.contains('is-active')) return
-
-    const tabs = currentTabItem.parentNode
-    tabs.childNodes.forEach((tabItem) => {
-      if (tabItem === currentTabItem) {
-        tabItem.classList.add('is-active')
-        this.setState({ activeForecast: tabItem.dataset.context })
-      }
-      else tabItem.classList.remove('is-active')
-    })
   }
 
   render() {
     const { location, weather, isCelsius } = this.props
     const { currentConditions, h10, f10 } = weather
-    const { activeForecast } = this.state
     return (
       <div className='l-wrap weather' >
         <section className='c-section c-condition'>
@@ -73,45 +50,31 @@ export class Weather extends React.Component {
           </div>
         </section>
         <section className='c-section'>
-          <div className='l-flex-container'>
-            <div className='tabs is-centered'>
-              <ul>
-                <li className='is-active' data-context='forecast-day' onClick={this.handleTabItemClick}><a>
-                  <span className="icon is-small"><i className="fa fa-calendar"></i></span>
-                  <span>Day</span>
-                </a></li>
-                <li data-context='forecast-hour' onClick={this.handleTabItemClick}><a>
-                  <span className="icon is-small"><i className="fa fa-clock-o"></i></span>
-                  <span>Hour</span>
-                </a></li>
-              </ul>
+          <div className='l-flex-container l-is-column'>
+            <div className='c-hscroll'>
+              {h10 && h10.map((forecast, i) => {
+                const date = moment.unix(forecast.timeStamp)
+                return (
+                  <div className='c-forecast-hour' key={i}>
+                    <span>{date.format('h a')}</span>
+                    <img src={forecast.iconUrl} alt={forecast.text} />
+                    <Temp isCelsius={isCelsius} c={forecast.tempC} f={forecast.tempF} />
+                  </div>
+                )
+              })
+              }
             </div>
             <div>
-              {(f10 && activeForecast === "forecast-day") &&
-                f10.map((forecast, i) => {
-                  const date = moment.unix(forecast.timeStamp)
-                  return (
-                    <div className='c-forecast-day' key={i}>
-                      <span className='l-forecast-day__span o-forecast-day__span is-uppercase is-size-5'>{date.format('ddd ') + date.date()}</span>
-                      <img src={forecast.iconUrl} alt={forecast.text} />
-                      <TempRange isRow isCelsius={isCelsius} range={forecast} />
-                    </div>
-                  )
-                })
-              }
-              {(h10 && activeForecast === 'forecast-hour') &&
-                h10.map((forecast, i) => {
-                  const date = moment.unix(forecast.timeStamp)
-                  return (
-                    <div key={i}>
-                      <span>{date.format('h a')}</span>
-                      <img src={forecast.iconUrl} alt={forecast.text} />
-                      <Temp isCelsius={isCelsius} c={forecast.tempC} f={forecast.tempF} />
-                      <span>Feels like</span>
-                      <Temp isCelsius={isCelsius} c={forecast.feelslikeC} f={forecast.feelslikeF} />
-                    </div>
-                  )
-                })
+              {f10 && f10.map((forecast, i) => {
+                const date = moment.unix(forecast.timeStamp)
+                return (
+                  <div className='c-forecast-day' key={i}>
+                    <span className='l-forecast-day__span o-forecast-day__span is-uppercase is-size-5'>{date.format('ddd ') + date.date()}</span>
+                    <img src={forecast.iconUrl} alt={forecast.text} />
+                    <TempRange isRow isCelsius={isCelsius} range={forecast} />
+                  </div>
+                )
+              })
               }
             </div>
           </div>
