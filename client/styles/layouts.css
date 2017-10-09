@@ -17,6 +17,8 @@
 .c-flex-container {
   display: flex;
   max-width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .c-is-column {

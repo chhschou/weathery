@@ -9,6 +9,11 @@
   content: "\00a0"
 }
 
+.c-condition {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
 .c-condition > div {
   display: flex;
   flex-direction: column;
@@ -20,7 +25,13 @@
   text-align: center;
 }
 
+
 .c-forecast-day {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.c-forecast-day__item {
   --column-width: calc(var(--outer-min-width)/12);
   display: grid;
   grid-template-columns: repeat(12, minmax(var(--column-width), 1fr));
@@ -28,15 +39,17 @@
   justify-items: center;
 }
 
-.c-forecast-day > * {
+.c-forecast-day__item > * {
   grid-column-end: span 4;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.l-forecast-day__span {
+.c-forecast-day__item > span {
   justify-self: start; 
 }
 
-.c-forecast-day > .c-temp-range {
+.c-forecast-day__item > .c-temp-range {
   justify-self: end;
   font-size: 1.1rem;
 }
@@ -48,10 +61,20 @@
 }
 
 .c-forecast-hour {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.c-forecast-hour__item {
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 1rem 1rem;
+}
+
+.c-forecast-hour__item > .o-temp {
+  font-size: 1.1rem;
 }
 
 .weather-details {
