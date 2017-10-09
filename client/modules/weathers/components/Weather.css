@@ -5,24 +5,31 @@
   flex-direction: row;
 }
 
-.c-feelslike > span::after {
-  content: "\00a0"
+.c-feelslike {
+  & span::after {
+    content: "\00a0"
+  }
+}
+
+.c-condition {
 }
 
 .c-condition {
   margin-top: 2rem;
   margin-bottom: 1rem;
-}
 
-.c-condition > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.c-condition > .c-main > .c-body {
-  margin: 0 auto;
-  text-align: center;
+  & > .c-main {
+    & > .c-body {
+      margin: 0 auto;
+      text-align: center;
+    }
+  } 
 }
 
 
@@ -37,21 +44,21 @@
   grid-template-columns: repeat(12, minmax(var(--column-width), 1fr));
   align-items: center;
   justify-items: center;
-}
 
-.c-forecast-day__item > * {
-  grid-column-end: span 4;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
+  & > * {
+    grid-column-end: span 4;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  & > span {
+    justify-self: start; 
+  }
 
-.c-forecast-day__item > span {
-  justify-self: start; 
-}
-
-.c-forecast-day__item > .c-temp-range {
-  justify-self: end;
-  font-size: 1.1rem;
+  & > .c-temp-range {
+    justify-self: end;
+    font-size: 1.1rem;
+  }
 }
 
 .c-hscroll {
@@ -71,10 +78,10 @@
   flex-direction: column;
   align-items: center;
   margin: 1rem 1rem;
-}
-
-.c-forecast-hour__item > .o-temp {
-  font-size: 1.1rem;
+  
+  & > .o-temp {
+    font-size: 1.1rem;
+  }
 }
 
 .weather-details {
