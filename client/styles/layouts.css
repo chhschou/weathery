@@ -10,13 +10,16 @@
   padding-right: var(--outer-pad-right);
 }
 
-.l-flex-container {
+.l-is-fullwidth {
   grid-column: 1 / -1;
-  display: flex;
-  flex-direction: row;
 }
 
-.l-is-column {
+.c-flex-container {
+  display: flex;
+  max-width: 100%;
+}
+
+.c-is-column {
   flex-direction: column;
 }
 

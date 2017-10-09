@@ -50,31 +50,31 @@ export class Weather extends React.Component {
           </div>
         </section>
         <section className='c-section'>
-          <div className='l-flex-container l-is-column'>
+          <div className='l-is-fullwidth c-flex-container c-is-column'>
             <div className='c-hscroll'>
               {h10 && h10.map((forecast, i) => {
-                const date = moment.unix(forecast.timeStamp)
-                return (
-                  <div className='c-forecast-hour' key={i}>
-                    <span>{date.format('h a')}</span>
-                    <img src={forecast.iconUrl} alt={forecast.text} />
-                    <Temp isCelsius={isCelsius} c={forecast.tempC} f={forecast.tempF} />
-                  </div>
-                )
-              })
+                  const date = moment.unix(forecast.timeStamp)
+                  return (
+                    <div className='c-forecast-hour' key={i}>
+                      <span>{date.format('h a')}</span>
+                      <img src={forecast.iconUrl} alt={forecast.text} />
+                      <Temp isCelsius={isCelsius} c={forecast.tempC} f={forecast.tempF} />
+                    </div>
+                  )
+                })
               }
             </div>
             <div>
               {f10 && f10.map((forecast, i) => {
-                const date = moment.unix(forecast.timeStamp)
-                return (
-                  <div className='c-forecast-day' key={i}>
-                    <span className='l-forecast-day__span o-forecast-day__span is-uppercase is-size-5'>{date.format('ddd ') + date.date()}</span>
-                    <img src={forecast.iconUrl} alt={forecast.text} />
-                    <TempRange isRow isCelsius={isCelsius} range={forecast} />
-                  </div>
-                )
-              })
+                  const date = moment.unix(forecast.timeStamp)
+                  return (
+                    <div className='c-forecast-day' key={i}>
+                      <span className='l-forecast-day__span o-forecast-day__span is-uppercase is-size-5'>{date.format('ddd ') + date.date()}</span>
+                      <img src={forecast.iconUrl} alt={forecast.text} />
+                      <TempRange isRow isCelsius={isCelsius} range={forecast} />
+                    </div>
+                  )
+                })
               }
             </div>
           </div>
