@@ -15,7 +15,7 @@ import settings from 'modules/settings'
 const { updateCurrentLocationId } = settings.actions
 import actions from 'actions'
 const { clearError, setError } = actions.error
-import headerStyles from './Header.css'
+import Header from './Header'
 
 class App extends React.Component {
   constructor(props) {
@@ -24,9 +24,10 @@ class App extends React.Component {
 
   componentDidMount() {
     const { settings, initialize, getLocationAndWeather, dispatch } = this.props
-    if (settings.currentLocationId == -1 && isUserLocationAvailable())
+    if (settings.currentLocationId == -1 && isUserLocationAvailable()) {
       initialize()
         .then(() => getLocationAndWeather(0))
+    }
   }
 
   hasWeatherToRender() {
@@ -38,31 +39,13 @@ class App extends React.Component {
     return false
   }
 
-  getLocationNames() {
-    const { settings, locations } = this.props
-    const location = locations.items[settings.currentLocationId]
-    return location ? location : { displayCity: '', observeCity: '' }
-  }
 
   render() {
     const { displayCity, observeCity } = this.getLocationNames()
     return (
       <Router>
         <div className='app-container'>
-          <header className='l-header c-header'>
-            <div className='l-column'>
-              <button className='button is-large o-header__button'><span className="icon"><i className="fa fa-dot-circle-o"></i></span></button>
-            </div>
-            <div className='l-column o-location'>
-              <h1 className='title'>{displayCity}</h1>
-              <h3 className='subtitle is-6'>{observeCity}</h3>
-            </div>
-            <div className='l-column'>
-              <div className='c-right'>
-                <button className='button is-large o-header__button'><span className="icon"><i className="fa fa-search"></i></span></button>
-              </div>
-            </div>
-          </header>
+          <Header />
           {this.props.error.msg && <Error msg={this.props.error.msg} />}
           {this.hasWeatherToRender() && <Weather />}
         </div>
