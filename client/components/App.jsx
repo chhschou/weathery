@@ -41,7 +41,6 @@ class App extends React.Component {
 
 
   render() {
-    const { displayCity, observeCity } = this.getLocationNames()
     return (
       <Router>
         <div className='app-container'>
