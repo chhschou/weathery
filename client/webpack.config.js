@@ -15,13 +15,13 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
+        use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
             { loader: 'css-loader', options: { importLoaders: 1, sourceMap: true } },
             { loader: 'postcss-loader', options: { sourceMap: true } }
           ]
-        })
+        }))
       },
       {
         test: /\.jsx?$/,
@@ -42,12 +42,16 @@ module.exports = {
   },
   devtool: 'source-map',
   node: { fs: 'empty' },
+  devServer: {
+    hot: true
+  },
   plugins: [
     new ExtractTextPlugin('bundle.css'),
     new webpack.DefinePlugin({
       'process.env.WUNDERGROUND_APIKEY': JSON.stringify(process.env.WUNDERGROUND_APIKEY),
       'process.env.G_GEOCODE_APIKEY': JSON.stringify(process.env.G_GEOCODE_APIKEY),
       'process.env.SIMULATE_API': JSON.stringify(process.env.SIMULATE_API)
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }

@@ -1,18 +1,32 @@
 import 'dotenv/config'
 import React from 'react'
-import {render} from 'react-dom'
-import {Provider} from 'react-redux'
-import {createStore, applyMiddleware, compose} from 'redux'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import rootReducer from './rootReducer'
 import App from './components/App'
 
+const configureStore = () => {
+  const store = createStore(rootReducer, compose(
+    applyMiddleware(thunkMiddleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  ))
 
-let store = createStore(rootReducer, compose(
-  applyMiddleware(thunkMiddleware),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-)) 
+  if (process.env.NODE_ENV !== "production") {
+    if (module.hot) {
+      console.log('hot')
+      module.hot.accept('./reducers', () => {
+        store.replaceReducer(rootReducer)
+      })
+    }
+  }
+
+  return store
+}
+
+const store = configureStore()
 
 document.addEventListener('DOMContentLoaded', () => {
   render(
@@ -21,4 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
     </Provider>,
     document.getElementById('app')
   )
+
+  if (module.hot) {
+    module.hot.accept('./components/App', () => {
+      render(
+        <Provider store={store}>
+          <App />
+        </Provider>,
+        document.getElementById('app')
+      )
+    })
+  }
 })

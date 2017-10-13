@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "webpack --config client/webpack.config.js",
     "dev": "nodemon --watch server server/index & webpack --config client/webpack.config.js --watch",
-    "dev-client": "webpack-dev-server --hot --inline --content-base public",
+    "dev-client": "webpack-dev-server --config client/webpack.config.js --hot --inline --content-base public",
     "start": "node server/index",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
@@ -64,6 +64,7 @@
     "browser-env": "^3.2.0",
     "commitizen": "^2.9.6",
     "conventional-changelog-cli": "^1.3.4",
+    "css-hot-loader": "^1.3.2",
     "css-loader": "^0.28.7",
     "cz-conventional-changelog": "^2.0.0",
     "enzyme": "^2.9.1",
