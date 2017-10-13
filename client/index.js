@@ -16,8 +16,7 @@ const configureStore = () => {
 
   if (process.env.NODE_ENV !== "production") {
     if (module.hot) {
-      console.log('hot')
-      module.hot.accept('./reducers', () => {
+      module.hot.accept('./rootReducer', () => {
         store.replaceReducer(rootReducer)
       })
     }
@@ -36,14 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('app')
   )
 
-  if (module.hot) {
-    module.hot.accept('./components/App', () => {
-      render(
-        <Provider store={store}>
-          <App />
-        </Provider>,
-        document.getElementById('app')
-      )
-    })
+  if (process.env.NODE_ENV !== "production") {
+    if (module.hot) {
+      module.hot.accept('./components/App', () => {
+        render(
+          <Provider store={store}>
+            <App />
+          </Provider>,
+          document.getElementById('app')
+        )
+      })
+    }
   }
 })
